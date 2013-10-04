@@ -1,5 +1,11 @@
 package domain;
 
+import org.uqbar.commons.model.ObservableUtils
+import org.uqbar.commons.model.UserException
+import org.uqbar.commons.model.Entity
+import org.uqbar.commons.utils.Observable
+
+@Observable
 class GateWayMOCK(unEstado : Boolean, unaListaDeTarjetas : List[Tarjeta]) extends GateWay{
 	var estadoDeConexion : Boolean = unEstado
 	var tarjetasConocidas : List[Tarjeta] = unaListaDeTarjetas
@@ -74,7 +80,8 @@ class Pago(unaTarjeta : Tarjeta, unMonto : Double){
   def getTarjeta = tarjeta
 }
 
-class Tarjeta(unApellido : String, unNombre : String, unNumero : Int, unSaldo : Double){
+@Observable
+class Tarjeta(unApellido : String, unNombre : String, unNumero : Int, unSaldo : Double) extends Entity{
   
   var apellido = unApellido
   var nombre = unNombre
