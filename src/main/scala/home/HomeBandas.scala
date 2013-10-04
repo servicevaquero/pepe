@@ -10,7 +10,7 @@ import org.apache.commons.collections15.Predicate
 import org.uqbar.commons.utils.ApplicationContext
 
 object HomeBandas extends CollectionBasedHome[Banda] {
-
+  
   def categoria(unTipoDeCategoria: Char): Categoria = {
     HomeCategorias.get(unTipoDeCategoria)
   }
@@ -23,6 +23,12 @@ object HomeBandas extends CollectionBasedHome[Banda] {
   }
 
   def bandas : java.util.List[Banda] = allInstances
+  
+  def bandasListaScala : List[Banda] = {
+    var listaDeBandas : List[Banda] = List()
+    allInstances.foreach(unaBanda => listaDeBandas = listaDeBandas ++ List(unaBanda))
+    listaDeBandas
+  }
 
   override def getEntityType = classOf[Banda]
 
