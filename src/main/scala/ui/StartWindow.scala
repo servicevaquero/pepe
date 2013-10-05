@@ -1,4 +1,5 @@
 package ui
+import home._
 
 import applicationModel.Start
 import java.awt.Color
@@ -17,30 +18,54 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import com.uqbar.commons.collections.Transformer
 import org.uqbar.arena.layout.VerticalLayout
+import org.uqbar.arena.actions.MessageSend
+import org.uqbar.arena.bindings.NotNullObservable
+import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.widgets.tables.Column
+import org.uqbar.arena.widgets.tables.Table
+import org.uqbar.arena.windows.Dialog
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.windows.WindowOwner
+import com.uqbar.commons.collections.Transformer
 
-class StartWindow (parent: WindowOwner) extends SimpleWindow[Start](parent, new Start) {
+class StartWindow(parent: WindowOwner) extends SimpleWindow[Start](parent, new Start) {
 
   //getModelObject.search()
-  override def addActions(actionsPanel:Panel) = {
-		new Button(actionsPanel) //
-			.setCaption("Convertir a kilómetros")
-			.onClick(new MessageSend(this.getModelObject(), "convertir"))
-	}
+  override def addActions(actionsPanel: Panel) = {
+    new Button(actionsPanel) //
+      .setCaption("Comprar Entrada")
+      .onClick(new MessageSend(this, "ComprarEntrada"))
+      
+      new Button(actionsPanel) //
+      .setCaption("Anular Entrada")
+      .onClick(new MessageSend(this, "AnularEntrada"))
+  }
 
-	override def createFormPanel(mainPanel:Panel ) {
-		this.setTitle("Conversor de millas a kilómetros")
-		mainPanel.setLayout(new VerticalLayout())
+  def ComprarEntrada() {
+    this.openDialog(new ComprarEntradaWindow(this, new Object)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
+  }
+  
+  def AnularEntrada() {
+    this.openDialog(new AnularEntradaWindow(this, new Object)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
+  }
 
-		new Label(mainPanel).setText("Ingrese la longitud en millas")
+  def openDialog(dialog: Dialog[_]) {
+    dialog.onAccept(new MessageSend(getModelObject, "search"))
+    dialog.open
+  }
+  
+    override def createFormPanel(mainPanel: Panel) = {
+    var searchFormPanel = new Panel(mainPanel)
+    searchFormPanel.setLayout(new ColumnLayout(2))
 
-		//new TextBox(mainPanel).bindValueToProperty("millas")
-
-		new Label(mainPanel) //
-			.setBackground(Color.ORANGE)
-			//.bindValueToProperty("kilometros")
-
-		new Label(mainPanel).setText(" kilómetros")
-		//new Label(mainPanel).bindValueToProperty("country")
-	}
+    var labelNumero = new Label(searchFormPanel)
+    labelNumero.setText("Hellooooo")
+    labelNumero.setForeground(Color.BLUE)
+  }
 
 }
