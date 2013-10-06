@@ -109,15 +109,15 @@ class test extends FunSuite with BeforeAndAfter {
   // -----> Sacado porque se testea en TestGeneral con manejo de Excepciones
   test("Viendo como responde el gateway") {
     var tarjetas : List[Tarjeta] = List()
-    var tarjetaA = new Tarjeta("Sanchez", "José", 1, 3000.0)
-    var tarjetaB = new Tarjeta("García","Clotildea Teodosia", 2, 100.0)
+    var tarjetaA = new Tarjeta("Sanchez", "Jose", 1, 3000.0)
+    var tarjetaB = new Tarjeta("Garcia","Clotildea Teodosia", 2, 100.0)
     tarjetas = tarjetas ++ List(tarjetaA, tarjetaB)
     var gateWay = new GateWayMOCK(true,tarjetas)
     gateWay.ingresarPago(tarjetaA, 200) // Realizado Exitosamente
     val thrownA = intercept[ExcepcionTarjetaRechazada] {
     gateWay.ingresarPago(tarjetaB, 200) // ----> java.lang.Exception: Saldo insuficiente
     }
-	assert(thrownA.getMessage() == "Saldo insuficiente")//Es lo que yo quería
+	assert(thrownA.getMessage() == "Saldo insuficiente")//Es lo que yo querï¿½a
     
     assert(tarjetaA.getSaldoDisponible === 2800)
     assert(tarjetaB.getSaldoDisponible === 100)
@@ -126,7 +126,7 @@ class test extends FunSuite with BeforeAndAfter {
     gateWay.ingresarPago(tarjetaA, 200) //todos imprimen por consola: ESTADO PENDIENTE
     gateWay.ingresarPago(tarjetaA, 200)
     gateWay.ingresarPago(tarjetaB, 70)
-    gateWay.ingresarPago(tarjetaB, 50) // este no va a ser realizado porque sería saldo -20 --> java.lang.Exception: Saldo insuficiente
+    gateWay.ingresarPago(tarjetaB, 50) // este no va a ser realizado porque serï¿½a saldo -20 --> java.lang.Exception: Saldo insuficiente
     //se fija que no haya hecho descuentos, porque esta OFFLINE
     assert(tarjetaA.getSaldoDisponible === 2800)
     assert(tarjetaB.getSaldoDisponible === 100)
@@ -134,14 +134,14 @@ class test extends FunSuite with BeforeAndAfter {
     val thrownB = intercept[ExcepcionTarjetaRechazada] {
     gateWay.setEstadoDeConexion(true)
     }
-    assert(thrownB.getMessage() == "Saldo insuficiente")//Es lo que yo quería
+    assert(thrownB.getMessage() == "Saldo insuficiente")//Es lo que yo querï¿½a
 	
 
     //se fija que al activarse realice todos los pendientes
     assert(tarjetaA.getSaldoDisponible === 2400)
     assert(tarjetaB.getSaldoDisponible === 30)
     
-    //se pone OFFLINE y después ONLINE para corroborar que los valores no se alteran, ya que no quedan pendientes
+    //se pone OFFLINE y despuï¿½s ONLINE para corroborar que los valores no se alteran, ya que no quedan pendientes
     gateWay.setEstadoDeConexion(false)
     
     gateWay.setEstadoDeConexion(true)
