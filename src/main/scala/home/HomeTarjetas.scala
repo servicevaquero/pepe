@@ -10,8 +10,8 @@ import org.uqbar.commons.utils.ApplicationContext
 
 object HomeTarjetas extends CollectionBasedHome[Tarjeta] {
 
-  this.create("Sanchez", "José", 1, 3000.0)
-  this.create("García","Clotildea Teodosia", 2, 100.0)
+  this.create("Sanchez", "Jose", 1, 3000.0)
+  this.create("Garcia","Clotildea Teodosia", 2, 100.0)
 
   def create(unApellido : String, unNombre : String, unNumero : Int, unSaldo : Double): Unit = {
     this.create(new Tarjeta(unApellido, unNombre, unNumero, unSaldo))
