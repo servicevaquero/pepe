@@ -75,8 +75,8 @@ class testGeneral extends FunSuite with BeforeAndAfter {
     
     festival = new Festival(listaDeButacas, listaDeReservadas, listaDeVIP, recargoVIP, List(presentacionA, presentacionB), List(Adulto, Menor, MenorDeDoce, Jubilado))
     
-    tarjetaA = new Tarjeta("Sanchez", "José", 1, 3000.0)
-    tarjetaB = new Tarjeta("García","Clotildea Teodosia", 2, 100.0)
+    tarjetaA = new Tarjeta("Sanchez", "Jose", 1, 3000.0)
+    tarjetaB = new Tarjeta("Garcia","Clotildea Teodosia", 2, 100.0)
     tarjetas = List(tarjetaA, tarjetaB)
     
     gateWay = new GateWayMOCK(true, tarjetas)
@@ -90,7 +90,7 @@ class testGeneral extends FunSuite with BeforeAndAfter {
     assert(carla.getTiposDeCliente.contains(MenorDeDoce))
     
     chango.agregarEntradaDeEsteFestivalPresentacionYButacaParaEsteCliente(festival, presentacionA, butaca1Fila1SectorA, "", carla)
-    assert(chango.calcularPrecio === 85)    // hasta acá no tiene descuento porque la considera que esta SOLA
+    assert(chango.calcularPrecio === 85)    // hasta acï¿½ no tiene descuento porque la considera que esta SOLA
     val carlonchasFather = Cliente.apply(22222222, 80, 'M')
     assert(carlonchasFather.getTiposDeCliente.contains(Jubilado))
     
@@ -104,7 +104,7 @@ class testGeneral extends FunSuite with BeforeAndAfter {
 		chango.realizarPagoConTarjeta(tarjetaB)
 	}
     assert(tarjetaB.getSaldoDisponible == 100) // Es pobre, no le alcanza la tarasca y le dice Saldo insuficiente
-    assert(thrown.getMessage() == "Saldo insuficiente")//Es lo que yo quería
+    assert(thrown.getMessage() == "Saldo insuficiente")//Es lo que yo querï¿½a
 	
   }
   
@@ -116,13 +116,13 @@ class testGeneral extends FunSuite with BeforeAndAfter {
     chango.agregarEntradaDeEsteFestivalPresentacionYButacaParaEsteCliente(festival, presentacionA, butaca1Fila1SectorA, "", carla)
 
     assert(chango.calcularPrecio === 85)
-    // hasta acá no tiene descuento porque no supera los minimos para aplicar el descuento de Menor
+    // hasta acï¿½ no tiene descuento porque no supera los minimos para aplicar el descuento de Menor
     val carlonchasFather = Cliente.apply(22222222, 80, 'M')
     
     chango.agregarEntradaDeEsteFestivalPresentacionYButacaParaEsteCliente(festival, presentacionA, butaca1Fila2SectorA, "", carlonchasFather)
     assert(chango.calcularPrecio === 153.7)
     
-    gateWay.setEstadoDeConexion(false) //apago para que no haga transacciones todavía
+    gateWay.setEstadoDeConexion(false) //apago para que no haga transacciones todavï¿½a
    
     chango.realizarPagoConTarjeta(tarjetaA)
     assert(tarjetaA.getSaldoDisponible == 3000)
@@ -132,7 +132,7 @@ class testGeneral extends FunSuite with BeforeAndAfter {
     val thrown = intercept[ExcepcionTarjetaRechazada] {
     gateWay.setEstadoDeConexion(true) // enciendo, entonces tiene que realizar las transacciones pendientes
 	}
-	assert(thrown.getMessage() == "Saldo insuficiente")//Es lo que yo quería
+	assert(thrown.getMessage() == "Saldo insuficiente")//Es lo que yo querï¿½a
     assert(tarjetaA.getSaldoDisponible == 2846.3)
     assert(tarjetaB.getSaldoDisponible == 100) // Es pobre, no le alcanza la tarasca y le dice Saldo insuficiente
   }
@@ -200,7 +200,7 @@ class testGeneral extends FunSuite with BeforeAndAfter {
     val thrown = intercept[ExcepcionTarjetaRechazada] {
     chango.realizarPagoConTarjeta(tarjetaB)
     }
-    assert(thrown.getMessage() == "Saldo insuficiente")//Es lo que yo quería
+    assert(thrown.getMessage() == "Saldo insuficiente")//Es lo que yo querï¿½a
     assert(tarjetaB.getSaldoDisponible == 100) // Es pobre, no le alcanza la tarasca y le dice Saldo insuficiente
   }
 
