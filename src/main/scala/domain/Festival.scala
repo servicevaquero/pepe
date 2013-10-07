@@ -5,7 +5,7 @@ import org.uqbar.commons.model.Entity
 import org.uqbar.commons.utils.Observable
 
 @Observable
-class Festival(unasButacas : List[Butaca], unasButacasReservadas : List[Butaca], unasButacasVIP : List[Butaca], unRecargoVIP : Double, unasPresentaciones : List[Presentacion], unosDescuentosHabilitados : List[TipoDeCliente]) extends Entity {
+class Festival(nombre : String, unasButacas : List[Butaca], unasButacasReservadas : List[Butaca], unasButacasVIP : List[Butaca], unRecargoVIP : Double, unasPresentaciones : List[Presentacion], unosDescuentosHabilitados : List[TipoDeCliente]) extends Entity {
   var butacas : List[Butaca] = unasButacas
   var butacasReservadas : List[Butaca] = unasButacasReservadas
   var butacasVIP : List[Butaca] = unasButacasVIP
@@ -13,7 +13,10 @@ class Festival(unasButacas : List[Butaca], unasButacasReservadas : List[Butaca],
   var descuentosHabilitados : List[TipoDeCliente] = unosDescuentosHabilitados 
   var recargoVIP : Double = unRecargoVIP
   val codigoReserva = "A la grande le puse Cuca"
-    
+  var nombreDelFestival : String = nombre
+  
+  def getNombre : String = nombreDelFestival
+  
   def crearEntradasParaCadaPresentacion{
     presentaciones.foreach(unaPresentacion => unaPresentacion.creaTusEntradas(butacas, this))
   }

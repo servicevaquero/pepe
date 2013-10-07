@@ -5,12 +5,14 @@ import org.uqbar.commons.model.Entity
 import org.uqbar.commons.utils.Observable
 
 @Observable
-class Presentacion(unaFecha: Int, unaListaDeBandas : List[Banda]) extends Entity {
+class Presentacion(unaFecha: String, unaListaDeBandas : List[Banda]) extends Entity {
 
-  val fecha: Int = unaFecha
+  val fecha: String = unaFecha
   val listaDeBandas: List[Banda] = unaListaDeBandas
   var listaDeEntradas: List[Entrada] = List()
-
+  def getFecha = fecha
+  def getCategoriaString : Char = this.getCategoria.getTipoCategoria
+  
   def getCategoria: Categoria = {	
     val categoriaMaxima: Char = listaDeBandas.map(banda => banda.getCategoria.getTipoCategoria).max	
     val banda: Banda = listaDeBandas.filter(banda => banda.getCategoria.getTipoCategoria == categoriaMaxima).head    

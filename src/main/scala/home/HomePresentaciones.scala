@@ -1,5 +1,6 @@
 package home
 import domain.Presentacion
+import domain.Festival
 import domain.Banda
 
 import scala.collection.JavaConversions.asScalaBuffer
@@ -11,10 +12,10 @@ import org.uqbar.commons.utils.ApplicationContext
 
 object HomePresentaciones extends CollectionBasedHome[Presentacion] {
     
-  this.create(20130101, HomeBandas.bandasListaScala)
-  this.create(20120101, HomeBandas.bandasListaScala)
+  this.create("01/01/2013", HomeBandas.bandasListaScala)
+  this.create("01/02/2013", HomeBandas.bandasListaScala)
 
-  def create(unaFecha: Int, unaListaDeBandas : List[Banda]) : Unit = {
+  def create(unaFecha: String, unaListaDeBandas : List[Banda]) : Unit = {
     this.create(new Presentacion(unaFecha, unaListaDeBandas))
   }
 
@@ -28,7 +29,7 @@ object HomePresentaciones extends CollectionBasedHome[Presentacion] {
 
   override def getEntityType = classOf[Presentacion]
 
-  override def createExample = new Presentacion(0, HomeBandas.bandasListaScala)
+  override def createExample = new Presentacion("", HomeBandas.bandasListaScala)
 
   override def getCriterio(example: Presentacion) = null
 

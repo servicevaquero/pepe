@@ -1,7 +1,9 @@
 package ui
 import home._
+import domain.Festival
 
 import applicationModel.Start
+import applicationModel.ComprarEntrada
 import java.awt.Color
 import org.uqbar.arena.actions.MessageSend
 import org.uqbar.arena.bindings.NotNullObservable
@@ -35,37 +37,31 @@ import com.uqbar.commons.collections.Transformer
 
 class StartWindow(parent: WindowOwner) extends SimpleWindow[Start](parent, new Start) {
 
-  //getModelObject.search()
   override def addActions(actionsPanel: Panel) = {
-    new Button(actionsPanel) //
+    new Button(actionsPanel)
       .setCaption("Comprar Entrada")
       .onClick(new MessageSend(this, "ComprarEntrada"))
-      
-      new Button(actionsPanel) //
+
+    new Button(actionsPanel)
       .setCaption("Anular Entrada")
       .onClick(new MessageSend(this, "AnularEntrada"))
   }
 
   def ComprarEntrada() {
-    this.openDialog(new ComprarEntradaWindow(this, new Object)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
+    this.openDialog(new ComprarEntradaWindow(this)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
   }
-  
+
   def AnularEntrada() {
     this.openDialog(new AnularEntradaWindow(this, new Object)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
   }
 
   def openDialog(dialog: Dialog[_]) {
-    dialog.onAccept(new MessageSend(getModelObject, "search"))
     dialog.open
   }
-  
-    override def createFormPanel(mainPanel: Panel) = {
-    var searchFormPanel = new Panel(mainPanel)
-    searchFormPanel.setLayout(new ColumnLayout(2))
 
-    var labelNumero = new Label(searchFormPanel)
-    labelNumero.setText("Hellooooo")
-    labelNumero.setForeground(Color.BLUE)
+  override def createFormPanel(mainPanel: Panel) = {
+    var searchFormPanel = new Panel(mainPanel)
+    searchFormPanel.setLayout(new ColumnLayout(1))
   }
 
 }

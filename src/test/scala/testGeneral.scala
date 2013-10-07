@@ -69,11 +69,11 @@ class testGeneral extends FunSuite with BeforeAndAfter {
     listaDeVIP = List(butaca1Fila1SectorB)
     recargoVIP = 0.5	
     listaDeBandas = List(bandaA, bandaB)
-    presentacionA = new Presentacion(20130502, listaDeBandas)
-    presentacionB = new Presentacion(20131212, listaDeBandas)
-    presentacionC = new Presentacion(1, List())
+    presentacionA = new Presentacion("", listaDeBandas)
+    presentacionB = new Presentacion("", listaDeBandas)
+    presentacionC = new Presentacion("", List())
     
-    festival = new Festival(listaDeButacas, listaDeReservadas, listaDeVIP, recargoVIP, List(presentacionA, presentacionB), List(Adulto, Menor, MenorDeDoce, Jubilado))
+    festival = new Festival("Festivalito", listaDeButacas, listaDeReservadas, listaDeVIP, recargoVIP, List(presentacionA, presentacionB), List(Adulto, Menor, MenorDeDoce, Jubilado))
     
     tarjetaA = new Tarjeta("Sanchez", "Jose", 1, 3000.0)
     tarjetaB = new Tarjeta("Garcia","Clotildea Teodosia", 2, 100.0)
@@ -154,7 +154,7 @@ class testGeneral extends FunSuite with BeforeAndAfter {
 
   test("Escena 1: ChangoMaster comprando - Toma: 4") { // DESCUENTO DAMA
     
-    var festivalConDama = new Festival(listaDeButacas, listaDeReservadas, listaDeVIP, recargoVIP, List(presentacionA, presentacionB), List(Dama, Adulto, Menor, Jubilado))
+    var festivalConDama = new Festival("Segundo", listaDeButacas, listaDeReservadas, listaDeVIP, recargoVIP, List(presentacionA, presentacionB), List(Dama, Adulto, Menor, Jubilado))
     festivalConDama.crearEntradasParaCadaPresentacion
     
     val carla = Cliente.apply(11111111, 47, 'F')
@@ -173,7 +173,7 @@ class testGeneral extends FunSuite with BeforeAndAfter {
 
   test("Escena 1: ChangoMaster comprando - Toma: 5") { //comprando Reservadas
 	
-    var festivalSinDescuentos = new Festival(listaDeButacas, List(butaca1Fila1SectorA), listaDeVIP, recargoVIP, List(presentacionA, presentacionB), List())
+    var festivalSinDescuentos = new Festival("Tercero", listaDeButacas, List(butaca1Fila1SectorA), listaDeVIP, recargoVIP, List(presentacionA, presentacionB), List())
     festivalSinDescuentos.crearEntradasParaCadaPresentacion    
     val carla = Cliente.apply(11111111, 11, 'F')
     
@@ -188,7 +188,7 @@ class testGeneral extends FunSuite with BeforeAndAfter {
   
   test("Escena 1: ChangoMaster comprando - Toma: 6") { //comprando VIP
 
-    var festivalSinDescuentos = new Festival(listaDeButacas, List(), List(butaca1Fila1SectorA), recargoVIP, List(presentacionA, presentacionB), List())
+    var festivalSinDescuentos = new Festival("Cuarto", listaDeButacas, List(), List(butaca1Fila1SectorA), recargoVIP, List(presentacionA, presentacionB), List())
     festivalSinDescuentos.crearEntradasParaCadaPresentacion
     val carla = Cliente.apply(11111111, 11, 'F')
     

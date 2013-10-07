@@ -16,6 +16,7 @@ import org.uqbar.commons.utils.Observable
 import org.apache.commons.collections15.Predicate
 import org.uqbar.commons.utils.ApplicationContext
 
+@Observable
 object HomeFestivales extends CollectionBasedHome[Festival] {
 
   val descuentosA: List[TipoDeCliente] = List(Adulto, Menor, MenorDeDoce, Jubilado)
@@ -23,11 +24,11 @@ object HomeFestivales extends CollectionBasedHome[Festival] {
   val listaDeButacasReservadas : List[Butaca] = List(HomeButacas.get(1, 2, 'b'))
   val listaDeButacasVIP : List[Butaca] = List(HomeButacas.get(1, 1, 'b'))
   
-  this.create(HomeButacas.butacasListaScala, listaDeButacasReservadas, listaDeButacasVIP, 0.5, HomePresentaciones.presentacionesListaScala, descuentosA)
-  this.create(HomeButacas.butacasListaScala, listaDeButacasReservadas, listaDeButacasVIP, 0.5, HomePresentaciones.presentacionesListaScala, descuentosB)
+  this.create("Festival Primero", HomeButacas.butacasListaScala, listaDeButacasReservadas, listaDeButacasVIP, 0.5, HomePresentaciones.presentacionesListaScala.tail, descuentosA)
+  this.create("Festival Segundo", HomeButacas.butacasListaScala, listaDeButacasReservadas, listaDeButacasVIP, 0.5, HomePresentaciones.presentacionesListaScala, descuentosB)
 
-  def create(unaListaDeButacas: List[Butaca], unaListaDeButacasReservadas: List[Butaca], unaListaDeButacasVIP: List[Butaca], unRecargo: Double, unaListaDePresentaciones: List[Presentacion], unaListaDeDescuentos: List[TipoDeCliente]): Unit = {
-    this.create(new Festival(unaListaDeButacas, unaListaDeButacasReservadas, unaListaDeButacasVIP, unRecargo, unaListaDePresentaciones, unaListaDeDescuentos))
+  def create(nombreDelFestival : String, unaListaDeButacas: List[Butaca], unaListaDeButacasReservadas: List[Butaca], unaListaDeButacasVIP: List[Butaca], unRecargo: Double, unaListaDePresentaciones: List[Presentacion], unaListaDeDescuentos: List[TipoDeCliente]): Unit = {
+    this.create(new Festival(nombreDelFestival, unaListaDeButacas, unaListaDeButacasReservadas, unaListaDeButacasVIP, unRecargo, unaListaDePresentaciones, unaListaDeDescuentos))
   }
 
   def get(unNumeroDeButaca: Int): Festival = //DESNEGREAR
@@ -44,10 +45,16 @@ object HomeFestivales extends CollectionBasedHome[Festival] {
   }
 
   def festivales: java.util.List[Festival] = allInstances
+  
+   def festivalesListaScala : List[Festival] = {
+    var listaDeFestivales : List[Festival] = List()
+    allInstances.foreach(unFestival => listaDeFestivales = listaDeFestivales ++ List(unFestival))
+    listaDeFestivales
+  }
 
   override def getEntityType = classOf[Festival]
 
-  override def createExample = new Festival(null, null, null, 0, null, null)
+  override def createExample = new Festival("Example", null, null, null, 0, null, null)
 
   override def getCriterio(example: Festival) = null
 
