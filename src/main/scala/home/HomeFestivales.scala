@@ -26,6 +26,8 @@ object HomeFestivales extends CollectionBasedHome[Festival] {
   
   this.create("Festival Primero", HomeButacas.butacasListaScala, listaDeButacasReservadas, listaDeButacasVIP, 0.5, HomePresentaciones.presentacionesListaScala.tail, descuentosA)
   this.create("Festival Segundo", HomeButacas.butacasListaScala, listaDeButacasReservadas, listaDeButacasVIP, 0.5, HomePresentaciones.presentacionesListaScala, descuentosB)
+  
+  festivalesListaScala.foreach(unFestival => unFestival.crearEntradasParaCadaPresentacion)
 
   def create(nombreDelFestival : String, unaListaDeButacas: List[Butaca], unaListaDeButacasReservadas: List[Butaca], unaListaDeButacasVIP: List[Butaca], unRecargo: Double, unaListaDePresentaciones: List[Presentacion], unaListaDeDescuentos: List[TipoDeCliente]): Unit = {
     this.create(new Festival(nombreDelFestival, unaListaDeButacas, unaListaDeButacasReservadas, unaListaDeButacasVIP, unRecargo, unaListaDePresentaciones, unaListaDeDescuentos))

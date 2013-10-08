@@ -83,18 +83,22 @@ class ComprarEntradaWindow(parent: WindowOwner) extends Dialog[ComprarEntrada](p
   def createGridActions(mainPanel: Panel) {
     var actionsPanel = new Panel(mainPanel)
     actionsPanel.setLayout(new HorizontalLayout)
-    var edit = new Button(actionsPanel)
-      .setCaption("Editar")
-      .onClick(new MessageSend(this, "modificarCelular"))
 
-    var remove = new Button(actionsPanel)
-      .setCaption("Borrar")
-      .onClick(new MessageSend(getModelObject, "eliminarCelularSeleccionado"))
+    var consultarEntradasDisponibles = new Button(actionsPanel)
+      .setCaption("Mostrar Entradas Disponibles")
+      .onClick(new MessageSend(this, "consultarEntradasDisponibles"))
 
-    // Deshabilitar los botones si no hay ningún elemento seleccionado en la grilla.
     var elementSelected = new NotNullObservable("presentacionSeleccionada")
-    remove.bindEnabled(elementSelected)
-    edit.bindEnabled(elementSelected)
+    consultarEntradasDisponibles.bindEnabled(elementSelected)
+  }
+  
+  def consultarEntradasDisponibles() {
+    this.openDialog(new ComprarEntradasDePresentacionWindow(this, getModelObject.presentacionSeleccionada))
+  }
+
+  def openDialog(dialog: Dialog[_]) {
+    dialog.onAccept(new MessageSend(getModelObject, "search"))
+    dialog.open
   }
 
 }

@@ -26,6 +26,12 @@ class Presentacion(unaFecha: String, unaListaDeBandas : List[Banda]) extends Ent
   def dameUnaEntradaConButaca(unaButaca : Butaca) = {
     listaDeEntradas.filter(unaEntrada => unaEntrada.getButaca == unaButaca)
   }
+  
+  def listaDeEntradasJava : java.util.ArrayList[Entrada] = {
+    var javaList : java.util.ArrayList[Entrada] = new java.util.ArrayList[Entrada]
+    listaDeEntradas.foreach(unaEntrada => javaList.add(unaEntrada))
+    javaList    
+  }
 
   def valorExtraPorNoche: Double = getCategoria.getExtraPorNoche
   def getEntradas : List[Entrada] = listaDeEntradas   
