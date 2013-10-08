@@ -11,13 +11,17 @@ class ComprarEntrada extends Serializable {
 
   var festivalSeleccionado: Festival = HomeFestivales.festivales.get(0)
   var presentacionSeleccionada: Presentacion = _
-  var listaDePresentaciones: java.util.List[Presentacion] = _
+  var listaDePresentaciones: java.util.ArrayList[Presentacion] = _
   
-  def search() = {
-    print(this.festivalSeleccionado.toString())
-	listaDePresentaciones = new ArrayList[Presentacion]
-    festivalSeleccionado.presentaciones.foreach(unaPresentacion => listaDePresentaciones.add(unaPresentacion))
-    listaDePresentaciones
+  def search() = {   
+	listaDePresentaciones = new ArrayList[Presentacion]	
+	listaDePresentaciones = this.getPresentacionesDeUnFestival    
   }
+  
+  def getPresentacionesDeUnFestival : java.util.ArrayList[Presentacion] = {		
+    var devolver : java.util.ArrayList[Presentacion] = new ArrayList[Presentacion]
+    festivalSeleccionado.presentaciones.foreach(p => devolver.add(p))
+    devolver
+  	}
 
 }
