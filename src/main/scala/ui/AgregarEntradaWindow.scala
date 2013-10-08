@@ -2,6 +2,7 @@ package ui
 import domain._
 import home._
 import applicationModel.ComprarEntrada
+import applicationModel.GestorDeCompra
 
 import java.awt.Color
 import org.uqbar.arena.layout.ColumnLayout
@@ -24,7 +25,7 @@ import collection.JavaConversions._
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 
-class ComprarEntradaWindow(parent: WindowOwner) extends Dialog[ComprarEntrada](parent, new ComprarEntrada) {
+class AgregarEntradaWindow(parent: WindowOwner, gestorDeCompra : GestorDeCompra) extends Dialog[ComprarEntrada](parent, new ComprarEntrada) {
 
   getModelObject.search()
 
