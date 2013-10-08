@@ -60,7 +60,7 @@ object HomeFestivales extends CollectionBasedHome[Festival] {
 
   override def getEntityType = classOf[Festival]
 
-  override def createExample = new Festival("Example", null, null, null, 0, null, null)
+  override def createExample = new Festival("Example", List(), List(), List(), 0, List(), List())
 
   override def getCriterio(example: Festival) = null
 

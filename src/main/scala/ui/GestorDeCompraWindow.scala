@@ -28,7 +28,7 @@ class GestorDeCompraWindow(parent: WindowOwner) extends Dialog[GestorDeCompra](p
 
   override def createMainTemplate(mainPanel: Panel) = {
     this.setTitle("Entradas Escogidas")
-    this.setTaskDescription("hola")
+    this.setTaskDescription("")
 
     super.createMainTemplate(mainPanel)
 

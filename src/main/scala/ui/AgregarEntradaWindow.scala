@@ -1,8 +1,10 @@
 package ui
 import domain._
+
 import home._
 import applicationModel.ComprarEntrada
 import applicationModel.GestorDeCompra
+import applicationModel.ElegirEntradasDePresentacion
 
 import java.awt.Color
 import org.uqbar.arena.layout.ColumnLayout
@@ -94,7 +96,7 @@ class AgregarEntradaWindow(parent: WindowOwner, gestorDeCompra : GestorDeCompra)
   }
   
   def consultarEntradasDisponibles() {
-    this.openDialog(new ComprarEntradasDePresentacionWindow(this, getModelObject.presentacionSeleccionada))
+    this.openDialog(new ElegirEntradasDePresentacionWindow(this, new ElegirEntradasDePresentacion(getModelObject.presentacionSeleccionada)))
   }
 
   def openDialog(dialog: Dialog[_]) {

@@ -1,5 +1,6 @@
 package ui
 import org.uqbar.arena.windows.Dialog
+
 import org.uqbar.arena.windows.WindowOwner
 import collection.JavaConversions._
 import java.awt.Color
@@ -25,12 +26,13 @@ import org.uqbar.arena.widgets.tables.Table
 import domain.Presentacion
 import domain.Entrada
 import home.HomePresentaciones
+import applicationModel.ElegirEntradasDePresentacion
 
-class ComprarEntradasDePresentacionWindow(owner: WindowOwner, model: Presentacion) extends Dialog[Presentacion](owner, model) {
+class ElegirEntradasDePresentacionWindow(owner: WindowOwner, model: ElegirEntradasDePresentacion) extends Dialog[ElegirEntradasDePresentacion](owner, model) {
 
   override def createMainTemplate(mainPanel: Panel) = {
-    this.setTitle("Comprar Entradas")
-    this.setTaskDescription("Seleccione un Entrada")
+    ElegirEntradasDePresentacionWindow.this.setTitle("Comprar Entradas")
+    ElegirEntradasDePresentacionWindow.this.setTaskDescription("")
 
     super.createMainTemplate(mainPanel)
   }
@@ -43,9 +45,8 @@ class ComprarEntradasDePresentacionWindow(owner: WindowOwner, model: Presentacio
     var selectorFestival = new Selector[Entrada](form)
     selectorFestival.allowNull(false)
     //selectorFestival.bindValueToProperty("festivalSeleccionado")
-    var propiedadFestival = selectorFestival.bindItems(new ObservableProperty(model, "listaDeEntradasJava")) // Bindea a TODA las instancias del Home
+    var propiedadFestival = selectorFestival.bindItems(new ObservableProperty(model, "entradasDisponibles")) // Bindea a TODA las instancias del Home
     propiedadFestival.setAdapter(new PropertyAdapter(classOf[Entrada], "precioBase"))
-
   }
 
 }

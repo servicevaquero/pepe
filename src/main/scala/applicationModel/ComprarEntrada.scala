@@ -9,7 +9,7 @@ import java.util.ArrayList
 @Observable
 class ComprarEntrada extends Serializable {
 
-  var festivalSeleccionado: Festival = HomeFestivales.festivales.get(0)
+  var festivalSeleccionado: Festival = home.HomeFestivales.createExample
   var presentacionSeleccionada: Presentacion = _
   var listaDePresentaciones: java.util.ArrayList[Presentacion] = _
   
