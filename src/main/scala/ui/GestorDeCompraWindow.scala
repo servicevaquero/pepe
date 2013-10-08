@@ -26,8 +26,6 @@ import applicationModel.GestorDeCompra
 
 class GestorDeCompraWindow(parent: WindowOwner) extends Dialog[GestorDeCompra](parent, new GestorDeCompra) {
 
-  getModelObject.search()
-
   override def createMainTemplate(mainPanel: Panel) = {
     this.setTitle("Entradas Escogidas")
     this.setTaskDescription("hola")
@@ -47,7 +45,7 @@ class GestorDeCompraWindow(parent: WindowOwner) extends Dialog[GestorDeCompra](p
     var table = new Table[Entrada](mainPanel, classOf[Entrada])
     table.setHeigth(200)
     table.setWidth(550)
-    table.bindItemsToProperty("entradasEscogidas")
+    table.bindItemsToProperty("entradasElegidas")
     table.bindValueToProperty("entradaSeleccionada")
     this.describeResultsGrid(table)
   }
@@ -104,7 +102,6 @@ class GestorDeCompraWindow(parent: WindowOwner) extends Dialog[GestorDeCompra](p
   }
 
   def openDialog(dialog: Dialog[_]) {
-    dialog.onAccept(new MessageSend(getModelObject, "search"))
     dialog.open
   }
 

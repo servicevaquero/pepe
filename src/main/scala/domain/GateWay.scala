@@ -4,7 +4,6 @@ import org.uqbar.commons.model.UserException
 import org.uqbar.commons.model.Entity
 import org.uqbar.commons.utils.Observable
 
-@Observable
 trait GateWay extends Entity{
 	var estadoDeConexion : Boolean
 	var tarjetasConocidas : List[Tarjeta]
