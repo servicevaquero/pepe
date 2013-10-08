@@ -13,7 +13,7 @@ class ElegirEntradasDePresentacion(unaPresentacion : Presentacion) extends Seria
   
   def setListaDisponibles {
     var listaTemporal : ArrayList[Entrada] = new ArrayList[Entrada]
-    presentacionEscogida.getEntradas.foreach(unaEntrada => listaTemporal.add(unaEntrada))
+    presentacionEscogida.getEntradas.foreach(unaEntrada => if(unaEntrada.cliente == null) listaTemporal.add(unaEntrada))
     entradasDisponibles = listaTemporal
   }
 }

@@ -23,9 +23,11 @@ object HomeFestivales extends CollectionBasedHome[Festival] {
   val descuentosB: List[TipoDeCliente] = List(Dama, MenorDeDoce, Jubilado)
   val listaDeButacasReservadas : List[Butaca] = List(HomeButacas.get(1, 2, 'b'))
   val listaDeButacasVIP : List[Butaca] = List(HomeButacas.get(1, 1, 'b'))
+  val listaDePresentacionesA: List[Presentacion] = List(HomePresentaciones.presentaciones.get(0), HomePresentaciones.presentaciones.get(2), HomePresentaciones.presentaciones.get(4))
+  val listaDePresentacionesB: List[Presentacion] = List(HomePresentaciones.presentaciones.get(1), HomePresentaciones.presentaciones.get(3))
   
-  this.create("Festival Primero", HomeButacas.butacasListaScala, listaDeButacasReservadas, listaDeButacasVIP, 0.5, HomePresentaciones.presentacionesListaScala.tail, descuentosA)
-  this.create("Festival Segundo", HomeButacas.butacasListaScala, listaDeButacasReservadas, listaDeButacasVIP, 0.5, HomePresentaciones.presentacionesListaScala, descuentosB)
+  this.create("Festival Primero", HomeButacas.butacasListaScala, listaDeButacasReservadas, listaDeButacasVIP, 0.5, listaDePresentacionesA, descuentosA)
+  this.create("Festival Segundo", HomeButacas.butacasListaScala, listaDeButacasReservadas, listaDeButacasVIP, 0.5, listaDePresentacionesB, descuentosB)
   
   this.crearEntradas
   

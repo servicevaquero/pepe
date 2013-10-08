@@ -1,6 +1,4 @@
 package applicationModel
 
-class Start extends Serializable {
-  home.HomeFestivales.crearEntradas
-  
+class Start extends Serializable {  
 }

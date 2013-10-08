@@ -1,6 +1,10 @@
 package ui
 import org.uqbar.arena.windows.Dialog
 
+import controller.EntradaCategoriaTransformer
+import controller.EntradaNumeroDeFilaTransformer
+import controller.EntradaNumeroDeButacaTransformer
+
 import org.uqbar.arena.windows.WindowOwner
 import collection.JavaConversions._
 import java.awt.Color
@@ -35,18 +39,55 @@ class ElegirEntradasDePresentacionWindow(owner: WindowOwner, model: ElegirEntrad
     ElegirEntradasDePresentacionWindow.this.setTaskDescription("")
 
     super.createMainTemplate(mainPanel)
+    this.createResultsGrid(mainPanel)
+    this.createGridActions(mainPanel)
   }
-  
-    override def createFormPanel(mainPanel: Panel) = {
+
+  override def createFormPanel(mainPanel: Panel) = {
     var form = new Panel(mainPanel)
     form.setLayout(new ColumnLayout(2))
+  }
 
-    new Label(form).setText("Entradas")
-    var selectorFestival = new Selector[Entrada](form)
-    selectorFestival.allowNull(false)
-    //selectorFestival.bindValueToProperty("festivalSeleccionado")
-    var propiedadFestival = selectorFestival.bindItems(new ObservableProperty(model, "entradasDisponibles")) // Bindea a TODA las instancias del Home
-    propiedadFestival.setAdapter(new PropertyAdapter(classOf[Entrada], "precioBase"))
+  def createResultsGrid(mainPanel: Panel) {
+    var table = new Table[Entrada](mainPanel, classOf[Entrada])
+    table.setHeigth(200)
+    table.setWidth(550)
+    table.bindItemsToProperty("entradasDisponibles")
+    table.bindValueToProperty("entradaEscogida")
+    this.describeResultsGrid(table)
+  }
+
+  def describeResultsGrid(table: Table[Entrada]) {
+    new Column[Entrada](table)
+      .setTitle("Sector")
+      .setFixedSize(100)
+      .bindContentsToTransformer(new EntradaCategoriaTransformer)
+
+    new Column[Entrada](table)
+      .setTitle("Fila")
+      .setFixedSize(100)
+      .bindContentsToTransformer(new EntradaNumeroDeFilaTransformer)
+
+    new Column[Entrada](table)
+      .setTitle("Numero de Butaca")
+      .setFixedSize(100)
+       .bindContentsToTransformer(new EntradaNumeroDeButacaTransformer)
+  }
+
+  def createGridActions(mainPanel: Panel) {
+    var actionsPanel = new Panel(mainPanel)
+    actionsPanel.setLayout(new HorizontalLayout)
+
+    new Button(actionsPanel)
+      .setCaption("Agregar Entrada/s")
+      .onClick(new MessageSend(this, "agregarEntrada"))
+
+    var confirmarButton = new Button(actionsPanel)
+      .setCaption("Confirmar Elección")
+      .onClick(new MessageSend(this, "ingresarPago"))
+
+    var elementSelected = new NotNullObservable("listaNULLorNotNULL")
+    confirmarButton.bindEnabled(elementSelected)
   }
 
 }

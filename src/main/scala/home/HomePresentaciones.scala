@@ -13,7 +13,10 @@ import org.uqbar.commons.utils.ApplicationContext
 object HomePresentaciones extends CollectionBasedHome[Presentacion] {
     
   this.create("01/01/2013", HomeBandas.bandasListaScala)
-  this.create("01/02/2013", HomeBandas.bandasListaScala)
+  this.create("01/02/2014", HomeBandas.bandasListaScala)
+  this.create("05/01/2013", HomeBandas.bandasListaScala)
+  this.create("19/02/2014", HomeBandas.bandasListaScala)
+  this.create("09/01/2013", HomeBandas.bandasListaScala)
 
   def create(unaFecha: String, unaListaDeBandas : List[Banda]) : Unit = {
     this.create(new Presentacion(unaFecha, unaListaDeBandas))
@@ -29,7 +32,7 @@ object HomePresentaciones extends CollectionBasedHome[Presentacion] {
 
   override def getEntityType = classOf[Presentacion]
 
-  override def createExample = new Presentacion("", HomeBandas.bandasListaScala)
+  override def createExample = new Presentacion("", List(HomeBandas.createExample))
 
   override def getCriterio(example: Presentacion) = null
 

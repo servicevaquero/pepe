@@ -12,11 +12,14 @@ import domain.Cliente
 class GestorDeCompra extends Serializable {
 
   var unChanguito: Chango = home.HomeChango.createExample
-  var entradaSeleccionada: Entrada = _
   var entradasElegidas : ArrayList[Entrada] = _
   
-  def agregarEntradas(unaEntrada : Entrada, unCodigo : String, unCliente : Cliente){
-    unChanguito.agregarEntrada(unaEntrada, unCodigo, unCliente)
+  var entradaSeleccionada: Entrada = null
+  var clienteSeleccionado: Cliente = null
+  var codigoTipeado: String = ""
+  
+  def agregarEntradas(){
+    unChanguito.agregarEntrada(entradaSeleccionada, codigoTipeado, clienteSeleccionado)
     setEntradasEscogidas
   }
   
