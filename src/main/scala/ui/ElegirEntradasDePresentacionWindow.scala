@@ -38,8 +38,8 @@ class ElegirEntradasDePresentacionWindow(owner: WindowOwner, unaPresentacion: Pr
   var gestorDeCompra : GestorDeCompra = unGestorDeCompra
   
   override def createMainTemplate(mainPanel: Panel) = {
-    ElegirEntradasDePresentacionWindow.this.setTitle("Comprar Entradas")
-    ElegirEntradasDePresentacionWindow.this.setTaskDescription(unaPresentacion.toString())
+    this.setTitle("Comprar Entradas")
+    this.setTaskDescription(unaPresentacion.toString())
 
     super.createMainTemplate(mainPanel)
     this.createResultsGrid(mainPanel)

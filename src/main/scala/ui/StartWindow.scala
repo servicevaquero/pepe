@@ -1,7 +1,7 @@
 package ui
 import home._
 import domain.Festival
-
+import applicationModel.GestorDeCompra
 import applicationModel.Start
 import applicationModel.ComprarEntrada
 import java.awt.Color
@@ -53,7 +53,7 @@ class StartWindow(parent: WindowOwner) extends SimpleWindow[Start](parent, new S
 
   def AnularEntrada() {
     //this.openDialog(new AnularEntradaWindow(this, new Object)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
-    this.openDialog(new ABMClientesWindow(this, home.HomeClientes.createExample))
+    this.openDialog(new SeleccionarClienteWindow(this, new GestorDeCompra))
   }
 
   def openDialog(dialog: Dialog[_]) {

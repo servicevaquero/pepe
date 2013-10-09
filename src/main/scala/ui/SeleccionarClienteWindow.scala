@@ -33,26 +33,33 @@ class SeleccionarClienteWindow(parent: WindowOwner, unGestorDeCompra: GestorDeCo
   var gestorDeCompra: GestorDeCompra = unGestorDeCompra
   getModelObject.search
 
-  override def createFormPanel(mainPanel: Panel) {
+  override def createMainTemplate(mainPanel: Panel) = {
+    this.setTitle("Seleccion de Cliente")
+    super.createMainTemplate(mainPanel)
 
-    this.setTitle("Clientes")
-    this.setTaskDescription("Lista de clientes")
+    this.createResultsGrid(mainPanel)
+    this.createGridActions(mainPanel)
+  }
 
-    var searchFormPanel = new Panel(mainPanel)
-    searchFormPanel.setLayout(new ColumnLayout(2))
+  override def createFormPanel(mainPanel: Panel) = {
+    var form = new Panel(mainPanel)
+    form.setLayout(new ColumnLayout(2))
 
-    var labelNumero = new Label(searchFormPanel)
+    var labelNumero = new Label(form)
     labelNumero.setText("DNI")
     labelNumero.setForeground(Color.BLUE)
 
-    new TextBox(searchFormPanel).bindValueToProperty("dni")
+    new TextBox(form).bindValueToProperty("dni")
 
-    var labelNombre = new Label(searchFormPanel)
+    var labelNombre = new Label(form)
     labelNombre.setText("Nombre del cliente")
     labelNombre.setForeground(Color.BLUE)
 
-    new TextBox(searchFormPanel).bindValueToProperty("nombre")
+    new TextBox(form).bindValueToProperty("nombre")
 
+  }
+
+  def createResultsGrid(mainPanel: Panel) {
     var table = new Table[Cliente](mainPanel, classOf[Cliente])
     table.setHeigth(200)
     table.setWidth(550)
@@ -73,12 +80,16 @@ class SeleccionarClienteWindow(parent: WindowOwner, unGestorDeCompra: GestorDeCo
       .bindContentsToProperty("nombre")
   }
 
-  def createGridActions(mainPanel : Panel){    
-    new Button(mainPanel)
-      .setCaption("Nuevo Cliente")
-      .onClick(new MessageSend(this, "crearCliente"))
+  def createGridActions(mainPanel: Panel) {
+    var actionsPanel = new Panel(mainPanel)
+    var editarButton = new Button(actionsPanel)
+      .setCaption("Editar")
+      .onClick(new MessageSend(this, "modificarCliente"))
+
+    var elementSelected = new NotNullObservable("clienteSeleccionado")
+    editarButton.bindEnabled(elementSelected)
   }
-  
+
   override def addActions(actionsPanel: Panel) {
     new Button(actionsPanel)
       .setCaption("Buscar")
@@ -89,22 +100,24 @@ class SeleccionarClienteWindow(parent: WindowOwner, unGestorDeCompra: GestorDeCo
     new Button(actionsPanel)
       .setCaption("Limpiar")
       .onClick(new MessageSend(getModelObject, "clear"))
+
+    new Button(actionsPanel) //
+      .setCaption("Nuevo Cliente")
+      .onClick(new MessageSend(this, "crearCliente"))
   }
-  
-  
 
   def crearCliente() {
-    getModelObject.clienteSeleccionado = home.HomeClientes.createExample
-
-    this.openDialog(new ABMClientesWindow(this, getModelObject.clienteSeleccionado))
+    gestorDeCompra.clienteSeleccionado = home.HomeClientes.createExample
+    this.openDialog(new ABMClientesWindow(this, gestorDeCompra.clienteSeleccionado))
   }
 
   def modificarCliente() {
+    gestorDeCompra.clienteSeleccionado = getModelObject.clienteSeleccionado
     this.openDialog(new ABMClientesWindow(this, getModelObject.clienteSeleccionado))
   }
 
   def openDialog(dialog: Dialog[_]) {
-    dialog.onAccept(new MessageSend(getModelObject, "search"))
+    //dialog.onAccept(new MessageSend(getModelObject, "search"))
     dialog.open
   }
 

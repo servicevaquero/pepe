@@ -9,8 +9,14 @@ import java.util.ArrayList
 import domain.Cliente
 
 @Observable
-class ABMClientes() extends Serializable {
-  var clienteSeleccionado : Cliente = _
-  var clientes : java.util.List[Cliente] = home.HomeClientes.clientes
+class ABMClientes(unCliente : Cliente) extends Serializable {
+  var clienteSeleccionado : Cliente = unCliente
+  
+  var dni : Int = clienteSeleccionado.dni
+  var nombre : String = clienteSeleccionado.nombre
+  var edad : Int = clienteSeleccionado.edad
+  var sexo : Char = clienteSeleccionado.sexo
+  
+
 	
 }

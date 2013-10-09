@@ -27,68 +27,28 @@ import collection.JavaConversions._
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 
-class ABMClientesWindow(parent: WindowOwner, unCliente: Cliente) extends Dialog[ABMClientes](parent, new ABMClientes()) {
+class ABMClientesWindow(parent: WindowOwner, unCliente: Cliente) extends Dialog[ABMClientes](parent, new ABMClientes(unCliente)) {
 
   override def createMainTemplate(mainPanel: Panel) = {
     this.setTitle("Clientes")
     this.setTaskDescription("Lista de clientes")
 
     super.createMainTemplate(mainPanel)
-
-    this.createResultsGrid(mainPanel)
-    this.createGridActions(mainPanel)
   }
 
   override def createFormPanel(mainPanel: Panel) = {
     var form = new Panel(mainPanel)
     form.setLayout(new ColumnLayout(2))
-  }
-
-  def createResultsGrid(mainPanel: Panel) {
-    var table = new Table[Cliente](mainPanel, classOf[Cliente])
-    table.setHeigth(200)
-    table.setWidth(550)
-    table.bindItemsToProperty("clientes")
-    table.bindValueToProperty("clienteSeleccionado")
-   // this.describeResultsGrid(table)
-  }
-
-  def describeResultsGrid(table: Table[Cliente]) {
-    new Column[Cliente](table)
-      .setTitle("Nombre y Apellido")
-      .setFixedSize(100)
-      .bindContentsToProperty("nombre")
-
-    new Column[Cliente](table)
-      .setTitle("DNI")
-      .setFixedSize(100)
-      .bindContentsToProperty("dni")
-
-    new Column[Cliente](table)
-      .setTitle("Edad")
-      .setFixedSize(100)
-      .bindContentsToProperty("edad")
-
-    new Column[Cliente](table)
-      .setTitle("Sexo")
-      .setFixedSize(100)
-      .bindContentsToProperty("sexo")
-  }
-
-  def createGridActions(mainPanel: Panel) {
-    var actionsPanel = new Panel(mainPanel)
-    actionsPanel.setLayout(new HorizontalLayout)
-
-    new Button(actionsPanel)
-      .setCaption("Agregar Cliente")
-      .onClick(new MessageSend(this, "agregarCliente"))
-
-    var aceptarButton = new Button(actionsPanel)
-      .setCaption("Aceptar")
-      .onClick(new MessageSend(this, "aceptarClienteElegido"))
-
-    var elementSelected = new NotNullObservable("clienteSeleccionado")
-    aceptarButton.bindEnabled(elementSelected)
+    
+    new Label(form).setText("DNI")
+    new TextBox(form).bindValueToProperty("dni")
+    new Label(form).setText("Nombre del cliente")
+    new TextBox(form).bindValueToProperty("nombre")
+    new Label(form).setText("Edad")
+    new TextBox(form).bindValueToProperty("edad")
+    new Label(form).setText("Sexo")
+    new TextBox(form).bindValueToProperty("sexo")
+    
   }
 
   def agregarCliente() {
