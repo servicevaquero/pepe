@@ -17,10 +17,16 @@ class GestorDeCompra extends Serializable {
   var entradaSeleccionada: Entrada = null
   var clienteSeleccionado: Cliente = null
   var codigoTipeado: String = ""
-
+  var precio: Double = 0.0
+  
+  def setPrecio() {
+    precio = unChanguito.calcularPrecio
+    }
+  
   def agregarEntradas() {
     unChanguito.agregarEntrada(entradaSeleccionada, codigoTipeado, clienteSeleccionado)
     setEntradasEscogidas
+    setPrecio
   }
 
   def setEntradasEscogidas {

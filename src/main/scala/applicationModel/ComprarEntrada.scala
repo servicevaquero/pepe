@@ -1,18 +1,19 @@
 package applicationModel
 import domain.Festival
 import domain.Presentacion
+import domain.Entrada
 import home.HomeFestivales
 import org.uqbar.commons.utils.Observable
 import home.HomePresentaciones
 import java.util.ArrayList
 
 @Observable
-class ComprarEntrada(unGestorDeCompra: GestorDeCompra) extends Serializable {
+class ComprarEntrada(unaEntrada: Entrada) extends Serializable {
 
-  var gestorDeCompra: GestorDeCompra = unGestorDeCompra
   var festivalSeleccionado: Festival = home.HomeFestivales.createExample
   var presentacionSeleccionada: Presentacion = null
   var listaDePresentaciones: ArrayList[Presentacion] = null
+  var entradaEscogida: Entrada = unaEntrada
   
   def search() = {
     listaDePresentaciones = new ArrayList[Presentacion]
@@ -24,8 +25,6 @@ class ComprarEntrada(unGestorDeCompra: GestorDeCompra) extends Serializable {
     festivalSeleccionado.presentaciones.foreach(unaPresentacion => devolver.add(unaPresentacion))
     devolver
   }
-
-  def sePuedeGenerarEntrada = gestorDeCompra.clienteSeleccionado
   
   def hayUnaPresentacionSeleccionada = {
     if (presentacionSeleccionada != null )

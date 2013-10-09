@@ -1,5 +1,6 @@
-package ui
+package ui.probando
 import domain._
+import controller._
 import home._
 
 import java.awt.Color
@@ -24,7 +25,7 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import applicationModel.GestorDeCompra
 
-class GestorDeCompraWindow(parent: WindowOwner) extends Dialog[GestorDeCompra](parent, new GestorDeCompra) {
+class GestorDeCompraW(parent: WindowOwner) extends Dialog[GestorDeCompra](parent, new GestorDeCompra) {
 
   override def createMainTemplate(mainPanel: Panel) = {
     this.setTitle("Entradas Escogidas")
@@ -34,11 +35,17 @@ class GestorDeCompraWindow(parent: WindowOwner) extends Dialog[GestorDeCompra](p
 
     this.createResultsGrid(mainPanel)
     this.createGridActions(mainPanel)
+
   }
 
   override def createFormPanel(mainPanel: Panel) = {
     var form = new Panel(mainPanel)
     form.setLayout(new ColumnLayout(2))
+
+    var labelNombre = new Label(form)
+    labelNombre.setText("Total")
+    labelNombre.setForeground(Color.BLUE)
+    new TextBox(form).bindValueToProperty("precio")
   }
 
   def createResultsGrid(mainPanel: Panel) {
@@ -54,51 +61,73 @@ class GestorDeCompraWindow(parent: WindowOwner) extends Dialog[GestorDeCompra](p
     new Column[Entrada](table)
       .setTitle("Fecha")
       .setFixedSize(100)
-      .bindContentsToProperty("agregarRecargos")
-      
-      new Column[Entrada](table)
-      .setTitle("Cliente")
-      .setFixedSize(100)
-      .bindContentsToProperty("agregarRecargos")
+      .bindContentsToTransformer(new EntradaFechaPresentacionTransformer)
 
+    new Column[Entrada](table)
+      .setTitle("Nombre del Cliente")
+      .setFixedSize(100)
+      .bindContentsToTransformer(new EntradaNombreClienteTransformer)
+
+    new Column[Entrada](table)
+      .setTitle("DNI del Cliente")
+      .setFixedSize(100)
+      .bindContentsToTransformer(new EntradaDNIClienteTransformer)
+    /*
     new Column[Entrada](table)
       .setTitle("Costo")
       .setFixedSize(100)
       .bindContentsToProperty("agregarRecargos")
-      
-      new Column[Entrada](table)
+*/
+    new Column[Entrada](table)
       .setTitle("Presentacion")
       .setFixedSize(100)
-      .bindContentsToProperty("agregarRecargos")
-      
-      new Column[Entrada](table)
+      .bindContentsToTransformer(new EntradaPresentacionTransformer)
+
+    new Column[Entrada](table)
       .setTitle("Festival")
       .setFixedSize(100)
-      .bindContentsToProperty("agregarRecargos")
+      .bindContentsToTransformer(new EntradaFestivalTransformer)
+
+    def describeResultsGrid(table: Table[Entrada]) {
+      new Column[Entrada](table)
+        .setTitle("Sector")
+        .setFixedSize(100)
+        .bindContentsToTransformer(new EntradaSectorTransformer)
+
+      new Column[Entrada](table)
+        .setTitle("Fila")
+        .setFixedSize(100)
+        .bindContentsToTransformer(new EntradaNumeroDeFilaTransformer)
+
+      new Column[Entrada](table)
+        .setTitle("Numero de Butaca")
+        .setFixedSize(100)
+        .bindContentsToTransformer(new EntradaNumeroDeButacaTransformer)
+    }
   }
 
   def createGridActions(mainPanel: Panel) {
     var actionsPanel = new Panel(mainPanel)
     actionsPanel.setLayout(new HorizontalLayout)
-    
+
     new Button(actionsPanel)
       .setCaption("Agregar Entrada/s")
       .onClick(new MessageSend(this, "agregarEntrada"))
 
     var confirmarButton = new Button(actionsPanel)
-      .setCaption("Confirmar Elección")
+      .setCaption("Realizar Pago")
       .onClick(new MessageSend(this, "ingresarPago"))
 
-    var elementSelected = new NotNullObservable("listaNULLorNotNULL")
+    var elementSelected = new NotNullObservable("entradasElegidas")
     confirmarButton.bindEnabled(elementSelected)
   }
-  
+
   def ingresarPago() {
-    //this.openDialog(new ComprarEntradasDePresentacionWindow(this, getModelObject.presentacionSeleccionada))
+    this.openDialog(new PagarW(this, getModelObject.unChanguito))
   }
-  
-   def agregarEntrada() {
-    //this.openDialog(new AgregarEntradaWindow(this, getModelObject))
+
+  def agregarEntrada() {
+    this.openDialog(new ElegirClienteYEntradaW(this, getModelObject))
   }
 
   def openDialog(dialog: Dialog[_]) {

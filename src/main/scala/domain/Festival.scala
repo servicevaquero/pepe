@@ -56,7 +56,7 @@ class Festival(nombre : String, unasButacas : List[Butaca], unasButacasReservada
   
   def validarDisponibilidad(unasEntradas : List[Entrada]){
     if(unasEntradas.filter(unaEntrada => unaEntrada.getCliente != null).length > 0)
-      throw new ExcepcionButacaOcupada("Ya esta ocupada")
+      throw new ExcepcionButacaOcupada("La butaca elegida ya esta ocupada")
   }
   
   def validarPresentacion(unaPresentacion : Presentacion){

@@ -1,4 +1,4 @@
-package ui
+package ui.probando
 import domain._
 
 import home._
@@ -27,9 +27,8 @@ import collection.JavaConversions._
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 
-class AgregarEntradaWindow(parent: WindowOwner, unGestorDeCompra: GestorDeCompra) extends Dialog[ComprarEntrada](parent, new ComprarEntrada(unGestorDeCompra)) {
+class AgregarEntradaW(parent: WindowOwner, unGestorDeCompra: GestorDeCompra) extends Dialog[ComprarEntrada](parent, new ComprarEntrada(unGestorDeCompra.entradaSeleccionada)) {
 	
-  var gestorDeCompra : GestorDeCompra = unGestorDeCompra
   getModelObject.search()
 
   override def createMainTemplate(mainPanel: Panel) = {
@@ -71,8 +70,8 @@ class AgregarEntradaWindow(parent: WindowOwner, unGestorDeCompra: GestorDeCompra
       .disableOnError
 
     var confirmarButton = new Button(actionsPanel)
-      .setCaption("Confirmar Eleccion")
-      .onClick(new MessageSend(this, "confirmarEleccion"))
+      .setCaption("Confirmar Entrada Elegida")
+      .onClick(new MessageSend(this, "accept"))
       .setAsDefault
 
     new Button(actionsPanel)
@@ -80,8 +79,7 @@ class AgregarEntradaWindow(parent: WindowOwner, unGestorDeCompra: GestorDeCompra
       .onClick(new MessageSend(this, "deshacerEleccion"))
       .setAsDefault
 
-    // Deshabilitar los botones si no hay ningún elemento seleccionado en la grilla.
-    var elementSelected = new NotNullObservable("sePuedeGenerarEntrada")
+    var elementSelected = new NotNullObservable("entradaEscogida")
     confirmarButton.bindEnabled(elementSelected)
   }
 
@@ -110,18 +108,12 @@ class AgregarEntradaWindow(parent: WindowOwner, unGestorDeCompra: GestorDeCompra
   }
 
   def consultarEntradasDisponibles() {
-    this.openDialog(new ElegirEntradasDePresentacionWindow(this, getModelObject.presentacionSeleccionada, unGestorDeCompra))
+    this.openDialog(new ElegirEntradaW(this, getModelObject.presentacionSeleccionada, unGestorDeCompra))
+    getModelObject.entradaEscogida = unGestorDeCompra.entradaSeleccionada
   }
 
-  def confirmarEleccion() {
-    getModelObject.gestorDeCompra.agregarEntradas
-    this.accept
-  }
-
-  def deshacerrEleccion() {
-    getModelObject.gestorDeCompra.clienteSeleccionado = null
-    getModelObject.gestorDeCompra.entradaSeleccionada = null
-    getModelObject.gestorDeCompra.codigoTipeado = ""
+  def deshacerEleccion() {
+    unGestorDeCompra.entradaSeleccionada = null
     this.cancel()
   }
 

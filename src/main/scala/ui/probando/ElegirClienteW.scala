@@ -1,4 +1,5 @@
-package ui
+package ui.probando
+import ui.ABMClientesWindow
 
 import domain._
 import applicationModel.SeleccionarCliente
@@ -28,9 +29,8 @@ import org.uqbar.arena.widgets.tables.Table
 import applicationModel.GestorDeCompra
 import home.HomeClientes
 
-class SeleccionarClienteWindow(parent: WindowOwner, unGestorDeCompra: GestorDeCompra) extends Dialog[SeleccionarCliente](parent, new SeleccionarCliente()) {
+class ElegirClienteW(parent: WindowOwner, unGestorDeCompra: GestorDeCompra) extends Dialog[SeleccionarCliente](parent, new SeleccionarCliente(unGestorDeCompra)) {
 
-  var gestorDeCompra: GestorDeCompra = unGestorDeCompra
   getModelObject.search
 
   override def createMainTemplate(mainPanel: Panel) = {
@@ -104,15 +104,27 @@ class SeleccionarClienteWindow(parent: WindowOwner, unGestorDeCompra: GestorDeCo
     new Button(actionsPanel) //
       .setCaption("Nuevo Cliente")
       .onClick(new MessageSend(this, "crearCliente"))
+
+    var confirmarButton = new Button(actionsPanel) //
+      .setCaption("Confirmar Eleccion")
+      .onClick(new MessageSend(this, "aceptar"))
+
+    var elementSelected = new NotNullObservable("clienteSeleccionado")
+    confirmarButton.bindEnabled(elementSelected)
+  }
+
+  def aceptar() {
+    getModelObject.setCliente
+    this.accept
   }
 
   def crearCliente() {
-    gestorDeCompra.clienteSeleccionado = home.HomeClientes.createExample
-    this.openDialog(new ABMClientesWindow(this, gestorDeCompra.clienteSeleccionado))
+    // gestorDeCompra.clienteSeleccionado = home.HomeClientes.createExample
+    //this.openDialog(new ABMClientesWindow(this, gestorDeCompra.clienteSeleccionado))
   }
 
   def modificarCliente() {
-    gestorDeCompra.clienteSeleccionado = getModelObject.clienteSeleccionado
+    //gestorDeCompra.clienteSeleccionado = getModelObject.clienteSeleccionado
     this.openDialog(new ABMClientesWindow(this, getModelObject.clienteSeleccionado))
   }
 

@@ -1,7 +1,7 @@
-package ui
+package ui.probando
 import org.uqbar.arena.windows.Dialog
 
-import controller.EntradaCategoriaTransformer
+import controller.EntradaSectorTransformer
 import controller.EntradaNumeroDeFilaTransformer
 import controller.EntradaNumeroDeButacaTransformer
 
@@ -33,7 +33,7 @@ import home.HomePresentaciones
 import applicationModel.ElegirEntradasDePresentacion
 import applicationModel.GestorDeCompra
 
-class ElegirEntradasDePresentacionWindow(owner: WindowOwner, unaPresentacion: Presentacion, unGestorDeCompra : GestorDeCompra) extends Dialog[ElegirEntradasDePresentacion](owner, new ElegirEntradasDePresentacion(unaPresentacion)) {
+class ElegirEntradaW(owner: WindowOwner, unaPresentacion: Presentacion, unGestorDeCompra : GestorDeCompra) extends Dialog[ElegirEntradasDePresentacion](owner, new ElegirEntradasDePresentacion(unaPresentacion,unGestorDeCompra)) {
 
   var gestorDeCompra : GestorDeCompra = unGestorDeCompra
   
@@ -64,7 +64,7 @@ class ElegirEntradasDePresentacionWindow(owner: WindowOwner, unaPresentacion: Pr
     new Column[Entrada](table)
       .setTitle("Sector")
       .setFixedSize(100)
-      .bindContentsToTransformer(new EntradaCategoriaTransformer)
+      .bindContentsToTransformer(new EntradaSectorTransformer)
 
     new Column[Entrada](table)
       .setTitle("Fila")
@@ -81,24 +81,17 @@ class ElegirEntradasDePresentacionWindow(owner: WindowOwner, unaPresentacion: Pr
     var actionsPanel = new Panel(mainPanel)
     actionsPanel.setLayout(new HorizontalLayout)
 
-    new Button(actionsPanel)
-      .setCaption("Elegir Cliente")
-      .onClick(new MessageSend(this, "elegirCliente"))
-
     var confirmarButton = new Button(actionsPanel)
       .setCaption("Confirmar Elección")
-      .onClick(new MessageSend(this, "ingresarPago"))
+      .onClick(new MessageSend(this, "aceptar"))
 
-    var elementSelected = new NotNullObservable("hayUnaEntradaElegida")
+    var elementSelected = new NotNullObservable("entradaEscogida")
     confirmarButton.bindEnabled(elementSelected)
   }
-
-  def elegirCliente() {
-	    this.openDialog(new SeleccionarClienteWindow(this, gestorDeCompra))
-  }
-
-  def openDialog(dialog: Dialog[_]) {
-    dialog.open
+  
+  def aceptar(){
+    getModelObject.setEntradaEscogida
+    this.accept
   }
 
 }

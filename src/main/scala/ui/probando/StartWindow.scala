@@ -1,39 +1,22 @@
-package ui
+package ui.probando
 import home._
-import domain.Festival
 import applicationModel.GestorDeCompra
 import applicationModel.Start
-import applicationModel.ComprarEntrada
-import java.awt.Color
 import org.uqbar.arena.actions.MessageSend
-import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.widgets.TextBox
-import org.uqbar.arena.widgets.tables.Column
-import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import com.uqbar.commons.collections.Transformer
-import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.actions.MessageSend
-import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.widgets.TextBox
-import org.uqbar.arena.widgets.tables.Column
-import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import com.uqbar.commons.collections.Transformer
+import ui.GestorDeCompraWindow
 
 class StartWindow(parent: WindowOwner) extends SimpleWindow[Start](parent, new Start) {
 
@@ -48,12 +31,12 @@ class StartWindow(parent: WindowOwner) extends SimpleWindow[Start](parent, new S
   }
 
   def ComprarEntrada() {
-    this.openDialog(new GestorDeCompraWindow(this)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
+    this.openDialog(new GestorDeCompraW(this)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
   }
 
   def AnularEntrada() {
     //this.openDialog(new AnularEntradaWindow(this, new Object)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
-    this.openDialog(new SeleccionarClienteWindow(this, new GestorDeCompra))
+    //this.openDialog(new ElegirClienteW(this, new GestorDeCompra))
   }
 
   def openDialog(dialog: Dialog[_]) {
