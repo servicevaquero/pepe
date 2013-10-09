@@ -39,7 +39,7 @@ class ABMClientesWindow(parent: WindowOwner, unCliente: Cliente) extends Dialog[
   override def createFormPanel(mainPanel: Panel) = {
     var form = new Panel(mainPanel)
     form.setLayout(new ColumnLayout(2))
-    
+
     new Label(form).setText("DNI")
     new TextBox(form).bindValueToProperty("dni")
     new Label(form).setText("Nombre del cliente")
@@ -48,9 +48,24 @@ class ABMClientesWindow(parent: WindowOwner, unCliente: Cliente) extends Dialog[
     new TextBox(form).bindValueToProperty("edad")
     new Label(form).setText("Sexo")
     new TextBox(form).bindValueToProperty("sexo")
-    
+
   }
 
+  override def addActions(actionsPanel: Panel) = {
+    new Button(actionsPanel)
+      .setCaption("Aceptar")
+      .onClick(new MessageSend(this, "modificar"))
+
+    new Button(actionsPanel)
+      .setCaption("Cancelar")
+      .onClick(new MessageSend(this, "cancel"))
+  }
+
+  def modificar(){
+    getModelObject.modificar()
+    this.accept()
+  }
+  
   def agregarCliente() {
     //  this.openDialog(new AgregarClienteWindow(this, getModelObject))
   }

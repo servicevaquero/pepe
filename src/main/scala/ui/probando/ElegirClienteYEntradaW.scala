@@ -16,7 +16,6 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import ui.GestorDeCompraWindow
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.TextBox
 import java.awt.Color

@@ -39,13 +39,6 @@ class GestorDeCompraW(parent: WindowOwner) extends Dialog[GestorDeCompra](parent
   }
 
   override def createFormPanel(mainPanel: Panel) = {
-    var form = new Panel(mainPanel)
-    form.setLayout(new ColumnLayout(2))
-
-    var labelNombre = new Label(form)
-    labelNombre.setText("Total")
-    labelNombre.setForeground(Color.BLUE)
-    new TextBox(form).bindValueToProperty("precio")
   }
 
   def createResultsGrid(mainPanel: Panel) {
@@ -72,12 +65,7 @@ class GestorDeCompraW(parent: WindowOwner) extends Dialog[GestorDeCompra](parent
       .setTitle("DNI del Cliente")
       .setFixedSize(100)
       .bindContentsToTransformer(new EntradaDNIClienteTransformer)
-    /*
-    new Column[Entrada](table)
-      .setTitle("Costo")
-      .setFixedSize(100)
-      .bindContentsToProperty("agregarRecargos")
-*/
+
     new Column[Entrada](table)
       .setTitle("Presentacion")
       .setFixedSize(100)
@@ -128,6 +116,7 @@ class GestorDeCompraW(parent: WindowOwner) extends Dialog[GestorDeCompra](parent
 
   def agregarEntrada() {
     this.openDialog(new ElegirClienteYEntradaW(this, getModelObject))
+    getModelObject.reload
   }
 
   def openDialog(dialog: Dialog[_]) {

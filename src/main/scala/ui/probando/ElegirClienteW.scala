@@ -1,5 +1,6 @@
 package ui.probando
 import ui.ABMClientesWindow
+import ui.CrearClienteW
 
 import domain._
 import applicationModel.SeleccionarCliente
@@ -48,13 +49,11 @@ class ElegirClienteW(parent: WindowOwner, unGestorDeCompra: GestorDeCompra) exte
     var labelNumero = new Label(form)
     labelNumero.setText("DNI")
     labelNumero.setForeground(Color.BLUE)
-
     new TextBox(form).bindValueToProperty("dni")
 
     var labelNombre = new Label(form)
-    labelNombre.setText("Nombre del cliente")
+    labelNombre.setText("Nombre y Apellido")
     labelNombre.setForeground(Color.BLUE)
-
     new TextBox(form).bindValueToProperty("nombre")
 
   }
@@ -62,7 +61,7 @@ class ElegirClienteW(parent: WindowOwner, unGestorDeCompra: GestorDeCompra) exte
   def createResultsGrid(mainPanel: Panel) {
     var table = new Table[Cliente](mainPanel, classOf[Cliente])
     table.setHeigth(200)
-    table.setWidth(550)
+    table.setWidth(400)
     table.bindItemsToProperty("resultados")
     table.bindValueToProperty("clienteSeleccionado")
     this.describeResultsGrid(table)
@@ -71,13 +70,23 @@ class ElegirClienteW(parent: WindowOwner, unGestorDeCompra: GestorDeCompra) exte
   def describeResultsGrid(table: Table[Cliente]) {
     new Column[Cliente](table)
       .setTitle("DNI")
-      .setFixedSize(150)
+      .setFixedSize(100)
       .bindContentsToProperty("dni")
 
     new Column[Cliente](table)
       .setTitle("Nombre")
-      .setFixedSize(100)
+      .setFixedSize(150)
       .bindContentsToProperty("nombre")
+
+    new Column[Cliente](table)
+      .setTitle("Sexo")
+      .setFixedSize(50)
+      .bindContentsToProperty("sexo")
+
+    new Column[Cliente](table)
+      .setTitle("Edad")
+      .setFixedSize(50)
+      .bindContentsToProperty("edad")
   }
 
   def createGridActions(mainPanel: Panel) {
@@ -119,17 +128,15 @@ class ElegirClienteW(parent: WindowOwner, unGestorDeCompra: GestorDeCompra) exte
   }
 
   def crearCliente() {
-    // gestorDeCompra.clienteSeleccionado = home.HomeClientes.createExample
-    //this.openDialog(new ABMClientesWindow(this, gestorDeCompra.clienteSeleccionado))
+    this.openDialog(new CrearClienteW(this, home.HomeClientes.createExample))
   }
 
   def modificarCliente() {
-    //gestorDeCompra.clienteSeleccionado = getModelObject.clienteSeleccionado
     this.openDialog(new ABMClientesWindow(this, getModelObject.clienteSeleccionado))
   }
 
   def openDialog(dialog: Dialog[_]) {
-    //dialog.onAccept(new MessageSend(getModelObject, "search"))
+    dialog.onAccept(new MessageSend(getModelObject, "search"))
     dialog.open
   }
 

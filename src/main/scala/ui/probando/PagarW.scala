@@ -51,12 +51,10 @@ class PagarW(parent: WindowOwner, unChango: Chango) extends Dialog[Pagar](parent
     new Button(actionsPanel)
       .setCaption("Pagar con Tarjeta")
       .onClick(new MessageSend(getModelObject, "realizarPagoConTarjeta"))
-      //.onClick(new MessageSend(this, "accept"))
 
     new Button(actionsPanel)
       .setCaption("Pagar con Efectivo")
       .onClick(new MessageSend(this, "accept"))
   }
-  def aceptar() {}
 
 }

@@ -27,6 +27,15 @@ object HomeClientes extends CollectionBasedHome[Cliente] {
     listaDeClientes
   }
 
+  
+  def modificarCliente(unDNI : Int, unClienteModificado: Cliente){
+    	var unCliente = this.get(unDNI)
+    	unCliente.dni =  unClienteModificado.dni
+    	unCliente.nombre = unClienteModificado.nombre
+    	unCliente.edad = unClienteModificado.edad
+    	unCliente.sexo = unClienteModificado.sexo
+  }
+  
   override def validateCreate(cliente: Cliente): Unit = {
     validarClientesDuplicados(cliente)
   }
@@ -51,7 +60,7 @@ object HomeClientes extends CollectionBasedHome[Cliente] {
 
   override def getEntityType = classOf[Cliente]
 
-  override def createExample: Cliente = Cliente.apply(0, 0, 'M', "")
+  override def createExample: Cliente = Cliente.apply(0, 0, '\0', "nombre del cliente")
 
   override def getCriterio(example: Cliente) = null
 

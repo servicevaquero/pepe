@@ -28,6 +28,12 @@ class GestorDeCompra extends Serializable {
     setEntradasEscogidas
     setPrecio
   }
+  
+  def reload(){
+	var temporalEntradasElegidas: ArrayList[Entrada] = entradasElegidas
+	entradasElegidas = new ArrayList[Entrada]
+	entradasElegidas = temporalEntradasElegidas
+  }
 
   def setEntradasEscogidas {
     var listaTemporal: ArrayList[Entrada] = new ArrayList[Entrada]

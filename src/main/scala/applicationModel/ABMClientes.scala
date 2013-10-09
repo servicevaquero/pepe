@@ -9,14 +9,17 @@ import java.util.ArrayList
 import domain.Cliente
 
 @Observable
-class ABMClientes(unCliente : Cliente) extends Serializable {
-  var clienteSeleccionado : Cliente = unCliente
-  
-  var dni : Int = clienteSeleccionado.dni
-  var nombre : String = clienteSeleccionado.nombre
-  var edad : Int = clienteSeleccionado.edad
-  var sexo : Char = clienteSeleccionado.sexo
-  
+class ABMClientes(unCliente: Cliente) extends Serializable {
 
-	
+  var dniInicial: Int = unCliente.dni
+  var dni: Int = unCliente.dni
+  var nombre: String = unCliente.nombre
+  var edad: Int = unCliente.edad
+  var sexo: Char = unCliente.sexo
+
+  def modificar() {
+    var unClienteModificado = Cliente.apply(dni, edad, sexo, nombre)
+    home.HomeClientes.modificarCliente(dniInicial, unClienteModificado)
+  }
+
 }

@@ -16,7 +16,6 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import ui.GestorDeCompraWindow
 
 class StartWindow(parent: WindowOwner) extends SimpleWindow[Start](parent, new Start) {
 
