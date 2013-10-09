@@ -12,31 +12,31 @@ import domain.Cliente
 class GestorDeCompra extends Serializable {
 
   var unChanguito: Chango = home.HomeChango.createExample
-  var entradasElegidas : ArrayList[Entrada] = _
-  
+  var entradasElegidas: ArrayList[Entrada] = _
+
   var entradaSeleccionada: Entrada = null
   var clienteSeleccionado: Cliente = null
   var codigoTipeado: String = ""
-  
-  def agregarEntradas(){
+
+  def agregarEntradas() {
     unChanguito.agregarEntrada(entradaSeleccionada, codigoTipeado, clienteSeleccionado)
     setEntradasEscogidas
   }
-  
+
   def setEntradasEscogidas {
-    var listaTemporal : ArrayList[Entrada] = new ArrayList[Entrada]
+    var listaTemporal: ArrayList[Entrada] = new ArrayList[Entrada]
     unChanguito.entradasEscogidas.foreach(unaEntrada => listaTemporal.add(unaEntrada))
     entradasElegidas = listaTemporal
   }
-  
+
   def listaNULLorNotNULL = {
-    if (entradasElegidas.size() > 0){
+    if (entradasElegidas.size() > 0) {
       new Object
-      print("\n\n\n\nHOLA")
-    }
-    else{
+    } else {
       null
     }
   }
+
+  def tenesNulls: Boolean = entradaSeleccionada == null || clienteSeleccionado == null
 
 }

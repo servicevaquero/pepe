@@ -27,8 +27,9 @@ import collection.JavaConversions._
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 
-class AgregarEntradaWindow(parent: WindowOwner, gestorDeCompra : GestorDeCompra) extends Dialog[ComprarEntrada](parent, new ComprarEntrada) {
-
+class AgregarEntradaWindow(parent: WindowOwner, unGestorDeCompra: GestorDeCompra) extends Dialog[ComprarEntrada](parent, new ComprarEntrada(unGestorDeCompra)) {
+	
+  var gestorDeCompra : GestorDeCompra = unGestorDeCompra
   getModelObject.search()
 
   override def createMainTemplate(mainPanel: Panel) = {
@@ -51,7 +52,6 @@ class AgregarEntradaWindow(parent: WindowOwner, gestorDeCompra : GestorDeCompra)
     selectorFestival.bindValueToProperty("festivalSeleccionado")
     var propiedadFestival = selectorFestival.bindItems(new ObservableProperty(HomeFestivales, "festivales")) // Bindea a TODA las instancias del Home
     propiedadFestival.setAdapter(new PropertyAdapter(classOf[Festival], "nombre"))
-
   }
 
   def createResultsGrid(mainPanel: Panel) {
@@ -61,6 +61,28 @@ class AgregarEntradaWindow(parent: WindowOwner, gestorDeCompra : GestorDeCompra)
     table.bindItemsToProperty("listaDePresentaciones")
     table.bindValueToProperty("presentacionSeleccionada")
     this.describeResultsGrid(table)
+  }
+
+  override def addActions(actionsPanel: Panel) {
+    new Button(actionsPanel)
+      .setCaption("Buscar")
+      .onClick(new MessageSend(getModelObject, "search"))
+      .setAsDefault
+      .disableOnError
+
+    var confirmarButton = new Button(actionsPanel)
+      .setCaption("Confirmar Eleccion")
+      .onClick(new MessageSend(this, "confirmarEleccion"))
+      .setAsDefault
+
+    new Button(actionsPanel)
+      .setCaption("Cancelar")
+      .onClick(new MessageSend(this, "deshacerEleccion"))
+      .setAsDefault
+
+    // Deshabilitar los botones si no hay ningún elemento seleccionado en la grilla.
+    var elementSelected = new NotNullObservable("sePuedeGenerarEntrada")
+    confirmarButton.bindEnabled(elementSelected)
   }
 
   def describeResultsGrid(table: Table[Presentacion]) {
@@ -75,14 +97,6 @@ class AgregarEntradaWindow(parent: WindowOwner, gestorDeCompra : GestorDeCompra)
       .bindContentsToProperty("categoriaString")
   }
 
-  override def addActions(actionsPanel: Panel) {
-    new Button(actionsPanel)
-      .setCaption("Buscar")
-      .onClick(new MessageSend(getModelObject, "search"))
-      .setAsDefault
-      .disableOnError
-  }
-
   def createGridActions(mainPanel: Panel) {
     var actionsPanel = new Panel(mainPanel)
     actionsPanel.setLayout(new HorizontalLayout)
@@ -91,12 +105,24 @@ class AgregarEntradaWindow(parent: WindowOwner, gestorDeCompra : GestorDeCompra)
       .setCaption("Mostrar Entradas Disponibles")
       .onClick(new MessageSend(this, "consultarEntradasDisponibles"))
 
-    var elementSelected = new NotNullObservable("presentacionSeleccionada")
-    consultarEntradasDisponibles.bindEnabled(elementSelected)
+    var notNullPresentacion = new NotNullObservable("presentacionSeleccionada")
+    consultarEntradasDisponibles.bindEnabled(notNullPresentacion)
   }
-  
+
   def consultarEntradasDisponibles() {
-    this.openDialog(new ElegirEntradasDePresentacionWindow(this, new ElegirEntradasDePresentacion(getModelObject.presentacionSeleccionada)))
+    this.openDialog(new ElegirEntradasDePresentacionWindow(this, getModelObject.presentacionSeleccionada, unGestorDeCompra))
+  }
+
+  def confirmarEleccion() {
+    getModelObject.gestorDeCompra.agregarEntradas
+    this.accept
+  }
+
+  def deshacerrEleccion() {
+    getModelObject.gestorDeCompra.clienteSeleccionado = null
+    getModelObject.gestorDeCompra.entradaSeleccionada = null
+    getModelObject.gestorDeCompra.codigoTipeado = ""
+    this.cancel()
   }
 
   def openDialog(dialog: Dialog[_]) {

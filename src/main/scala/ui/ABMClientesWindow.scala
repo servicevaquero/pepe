@@ -27,7 +27,7 @@ import collection.JavaConversions._
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 
-class ABMClientesWindow(parent: WindowOwner, unCliente: Cliente) extends Dialog[ABMClientes](parent, new ABMClientes(unCliente)) {
+class ABMClientesWindow(parent: WindowOwner, unCliente: Cliente) extends Dialog[ABMClientes](parent, new ABMClientes()) {
 
   override def createMainTemplate(mainPanel: Panel) = {
     this.setTitle("Clientes")
@@ -50,7 +50,7 @@ class ABMClientesWindow(parent: WindowOwner, unCliente: Cliente) extends Dialog[
     table.setWidth(550)
     table.bindItemsToProperty("clientes")
     table.bindValueToProperty("clienteSeleccionado")
-    this.describeResultsGrid(table)
+   // this.describeResultsGrid(table)
   }
 
   def describeResultsGrid(table: Table[Cliente]) {

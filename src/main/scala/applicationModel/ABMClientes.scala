@@ -9,7 +9,8 @@ import java.util.ArrayList
 import domain.Cliente
 
 @Observable
-class ABMClientes(unCliente : Cliente) extends Serializable {
-  var clienteSeleccionado : Cliente = unCliente
+class ABMClientes() extends Serializable {
+  var clienteSeleccionado : Cliente = _
+  var clientes : java.util.List[Cliente] = home.HomeClientes.clientes
 	
 }

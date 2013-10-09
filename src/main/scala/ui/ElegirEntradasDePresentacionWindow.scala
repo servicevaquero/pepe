@@ -31,12 +31,15 @@ import domain.Presentacion
 import domain.Entrada
 import home.HomePresentaciones
 import applicationModel.ElegirEntradasDePresentacion
+import applicationModel.GestorDeCompra
 
-class ElegirEntradasDePresentacionWindow(owner: WindowOwner, model: ElegirEntradasDePresentacion) extends Dialog[ElegirEntradasDePresentacion](owner, model) {
+class ElegirEntradasDePresentacionWindow(owner: WindowOwner, unaPresentacion: Presentacion, unGestorDeCompra : GestorDeCompra) extends Dialog[ElegirEntradasDePresentacion](owner, new ElegirEntradasDePresentacion(unaPresentacion)) {
 
+  var gestorDeCompra : GestorDeCompra = unGestorDeCompra
+  
   override def createMainTemplate(mainPanel: Panel) = {
     ElegirEntradasDePresentacionWindow.this.setTitle("Comprar Entradas")
-    ElegirEntradasDePresentacionWindow.this.setTaskDescription("")
+    ElegirEntradasDePresentacionWindow.this.setTaskDescription(unaPresentacion.toString())
 
     super.createMainTemplate(mainPanel)
     this.createResultsGrid(mainPanel)
@@ -71,7 +74,7 @@ class ElegirEntradasDePresentacionWindow(owner: WindowOwner, model: ElegirEntrad
     new Column[Entrada](table)
       .setTitle("Numero de Butaca")
       .setFixedSize(100)
-       .bindContentsToTransformer(new EntradaNumeroDeButacaTransformer)
+      .bindContentsToTransformer(new EntradaNumeroDeButacaTransformer)
   }
 
   def createGridActions(mainPanel: Panel) {
@@ -79,15 +82,23 @@ class ElegirEntradasDePresentacionWindow(owner: WindowOwner, model: ElegirEntrad
     actionsPanel.setLayout(new HorizontalLayout)
 
     new Button(actionsPanel)
-      .setCaption("Agregar Entrada/s")
-      .onClick(new MessageSend(this, "agregarEntrada"))
+      .setCaption("Elegir Cliente")
+      .onClick(new MessageSend(this, "elegirCliente"))
 
     var confirmarButton = new Button(actionsPanel)
       .setCaption("Confirmar Elección")
       .onClick(new MessageSend(this, "ingresarPago"))
 
-    var elementSelected = new NotNullObservable("listaNULLorNotNULL")
+    var elementSelected = new NotNullObservable("hayUnaEntradaElegida")
     confirmarButton.bindEnabled(elementSelected)
+  }
+
+  def elegirCliente() {
+	    this.openDialog(new SeleccionarClienteWindow(this, gestorDeCompra))
+  }
+
+  def openDialog(dialog: Dialog[_]) {
+    dialog.open
   }
 
 }

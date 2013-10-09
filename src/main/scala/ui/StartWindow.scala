@@ -53,7 +53,7 @@ class StartWindow(parent: WindowOwner) extends SimpleWindow[Start](parent, new S
 
   def AnularEntrada() {
     //this.openDialog(new AnularEntradaWindow(this, new Object)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
-    this.openDialog(new ABMClientesWindow(this, domain.Cliente.apply(0,0,'\0')))
+    this.openDialog(new ABMClientesWindow(this, home.HomeClientes.createExample))
   }
 
   def openDialog(dialog: Dialog[_]) {

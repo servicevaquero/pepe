@@ -7,21 +7,30 @@ import home.HomePresentaciones
 import java.util.ArrayList
 
 @Observable
-class ComprarEntrada extends Serializable {
+class ComprarEntrada(unGestorDeCompra: GestorDeCompra) extends Serializable {
 
+  var gestorDeCompra: GestorDeCompra = unGestorDeCompra
   var festivalSeleccionado: Festival = home.HomeFestivales.createExample
-  var presentacionSeleccionada: Presentacion = _
-  var listaDePresentaciones: java.util.ArrayList[Presentacion] = _
+  var presentacionSeleccionada: Presentacion = null
+  var listaDePresentaciones: ArrayList[Presentacion] = null
   
-  def search() = {   
-	listaDePresentaciones = new ArrayList[Presentacion]	
-	listaDePresentaciones = this.getPresentacionesDeUnFestival    
+  def search() = {
+    listaDePresentaciones = new ArrayList[Presentacion]
+    listaDePresentaciones = this.getPresentacionesDeUnFestival
   }
-  
-  def getPresentacionesDeUnFestival : java.util.ArrayList[Presentacion] = {		
-    var devolver : java.util.ArrayList[Presentacion] = new ArrayList[Presentacion]
-    festivalSeleccionado.presentaciones.foreach(p => devolver.add(p))
+
+  def getPresentacionesDeUnFestival: ArrayList[Presentacion] = {
+    var devolver: ArrayList[Presentacion] = new ArrayList[Presentacion]
+    festivalSeleccionado.presentaciones.foreach(unaPresentacion => devolver.add(unaPresentacion))
     devolver
-  	}
+  }
+
+  def sePuedeGenerarEntrada = gestorDeCompra.clienteSeleccionado
+  
+  def hayUnaPresentacionSeleccionada = {
+    if (presentacionSeleccionada != null )
+      new Object()
+    else null
+  }
 
 }
