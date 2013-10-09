@@ -1,5 +1,5 @@
 package ui.probando
-import ui.ABMClientesWindow
+import ui.ABMClientesW
 import ui.CrearClienteW
 
 import domain._
@@ -133,7 +133,7 @@ class ElegirClienteW(parent: WindowOwner, unElector: ElegirClienteYEntrada) exte
   }
 
   def modificarCliente() {
-    this.openDialog(new ABMClientesWindow(this, getModelObject.clienteSeleccionado))
+    this.openDialog(new ABMClientesW(this, getModelObject.clienteSeleccionado))
   }
 
   def openDialog(dialog: Dialog[_]) {

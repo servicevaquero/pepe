@@ -27,11 +27,11 @@ import collection.JavaConversions._
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 
-class ABMClientesWindow(parent: WindowOwner, unCliente: Cliente) extends Dialog[ABMClientes](parent, new ABMClientes(unCliente)) {
+class ABMClientesW(parent: WindowOwner, unCliente: Cliente) extends Dialog[ABMClientes](parent, new ABMClientes(unCliente)){
 
   override def createMainTemplate(mainPanel: Panel) = {
-    this.setTitle("Clientes")
-    this.setTaskDescription("Lista de clientes")
+    ABMClientesW.this.setTitle("Clientes")
+    ABMClientesW.this.setTaskDescription("Lista de clientes")
 
     super.createMainTemplate(mainPanel)
   }
@@ -40,30 +40,30 @@ class ABMClientesWindow(parent: WindowOwner, unCliente: Cliente) extends Dialog[
     var form = new Panel(mainPanel)
     form.setLayout(new ColumnLayout(2))
 
-    new Label(form).setText("DNI")
-    new TextBox(form).bindValueToProperty("dni")
-    new Label(form).setText("Nombre del cliente")
-    new TextBox(form).bindValueToProperty("nombre")
-    new Label(form).setText("Edad")
-    new TextBox(form).bindValueToProperty("edad")
-    new Label(form).setText("Sexo")
-    new TextBox(form).bindValueToProperty("sexo")
+    (new Label(form)).setText("DNI")
+    (new TextBox(form)).bindValueToProperty("dni")
+    (new Label(form)).setText("Nombre del cliente")
+    (new TextBox(form)).bindValueToProperty("nombre")
+    (new Label(form)).setText("Edad")
+    (new TextBox(form)).bindValueToProperty("edad")
+    (new Label(form)).setText("Sexo")
+    (new TextBox(form)).bindValueToProperty("sexo")
 
   }
 
   override def addActions(actionsPanel: Panel) = {
-    new Button(actionsPanel)
-      .setCaption("Aceptar")
-      .onClick(new MessageSend(this, "modificar"))
+    (new Button(actionsPanel))
+    .setCaption("Aceptar")
+    .onClick(new MessageSend(ABMClientesW.this, "modificar"))
 
-    new Button(actionsPanel)
-      .setCaption("Cancelar")
-      .onClick(new MessageSend(this, "cancel"))
+    (new Button(actionsPanel))
+    .setCaption("Cancelar")
+    .onClick(new MessageSend(ABMClientesW.this, "cancel"))
   }
 
   def modificar(){
     getModelObject.modificar()
-    this.accept()
+    ABMClientesW.this.accept()
   }
   
   def agregarCliente() {
@@ -72,7 +72,7 @@ class ABMClientesWindow(parent: WindowOwner, unCliente: Cliente) extends Dialog[
 
   def aceptarClienteElegido() {
     //  this.openDialog(new AgregarClienteWindow(this, getModelObject))
-    this.accept()
+    ABMClientesW.this.accept()
   }
 
   def openDialog(dialog: Dialog[_]) {
