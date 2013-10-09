@@ -2,7 +2,6 @@ package ui
 
 import domain._
 import applicationModel.SeleccionarCliente
-
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
 import collection.JavaConversions._
@@ -27,28 +26,86 @@ import collection.JavaConversions._
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import applicationModel.GestorDeCompra
+import home.HomeClientes
 
 class SeleccionarClienteWindow(parent: WindowOwner, unGestorDeCompra: GestorDeCompra) extends Dialog[SeleccionarCliente](parent, new SeleccionarCliente()) {
-	
+
   var gestorDeCompra: GestorDeCompra = unGestorDeCompra
   getModelObject.search
-  
-  override def createMainTemplate(mainPanel: Panel) = {
+
+  override def createFormPanel(mainPanel: Panel) {
+
     this.setTitle("Clientes")
     this.setTaskDescription("Lista de clientes")
 
-    super.createMainTemplate(mainPanel)
+    var searchFormPanel = new Panel(mainPanel)
+    searchFormPanel.setLayout(new ColumnLayout(2))
 
-    //this.createResultsGrid(mainPanel)
-    //this.createGridActions(mainPanel)
-  }
-  
-  override def createFormPanel(mainPanel: Panel){
+    var labelNumero = new Label(searchFormPanel)
+    labelNumero.setText("DNI")
+    labelNumero.setForeground(Color.BLUE)
+
+    new TextBox(searchFormPanel).bindValueToProperty("dni")
+
+    var labelNombre = new Label(searchFormPanel)
+    labelNombre.setText("Nombre del cliente")
+    labelNombre.setForeground(Color.BLUE)
+
+    new TextBox(searchFormPanel).bindValueToProperty("nombre")
+
     var table = new Table[Cliente](mainPanel, classOf[Cliente])
     table.setHeigth(200)
     table.setWidth(550)
     table.bindItemsToProperty("resultados")
     table.bindValueToProperty("clienteSeleccionado")
-    //this.describeResultsGrid(table)
+    this.describeResultsGrid(table)
   }
+
+  def describeResultsGrid(table: Table[Cliente]) {
+    new Column[Cliente](table)
+      .setTitle("DNI")
+      .setFixedSize(150)
+      .bindContentsToProperty("dni")
+
+    new Column[Cliente](table)
+      .setTitle("Nombre")
+      .setFixedSize(100)
+      .bindContentsToProperty("nombre")
+  }
+
+  def createGridActions(mainPanel : Panel){    
+    new Button(mainPanel)
+      .setCaption("Nuevo Cliente")
+      .onClick(new MessageSend(this, "crearCliente"))
+  }
+  
+  override def addActions(actionsPanel: Panel) {
+    new Button(actionsPanel)
+      .setCaption("Buscar")
+      .onClick(new MessageSend(getModelObject, "search"))
+      .setAsDefault
+      .disableOnError
+
+    new Button(actionsPanel)
+      .setCaption("Limpiar")
+      .onClick(new MessageSend(getModelObject, "clear"))
+  }
+  
+  
+
+  def crearCliente() {
+    getModelObject.clienteSeleccionado = home.HomeClientes.createExample
+
+    this.openDialog(new ABMClientesWindow(this, getModelObject.clienteSeleccionado))
+  }
+
+  def modificarCliente() {
+    this.openDialog(new ABMClientesWindow(this, getModelObject.clienteSeleccionado))
+  }
+
+  def openDialog(dialog: Dialog[_]) {
+    dialog.onAccept(new MessageSend(getModelObject, "search"))
+    dialog.open
+  }
+
 }

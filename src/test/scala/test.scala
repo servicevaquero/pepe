@@ -81,12 +81,12 @@ class test extends FunSuite with BeforeAndAfter {
     
     //solo estan habilitados adulto, dama y jubilado
     
-    var unCliente = Cliente.apply(23000000, 78, 'M') // Jubilado :D
+    var unCliente = Cliente.apply(23000000, 78, 'M', "") // Jubilado :D
     unaEntrada.setCliente(unCliente)
     val valorConDescuentoJubilado = unaEntrada.calcularPrecioConDescuento(listaEntradas)
     assert(valorConDescuentoJubilado === unaEntrada.calcularPrecioSinDescuento - (0.15 * unaEntrada.precioBase))
     
-    unCliente = Cliente.apply(23000000, 60, 'M') // Adulto :(
+    unCliente = Cliente.apply(23000000, 60, 'M', "") // Adulto :(
     unaEntrada.setCliente(unCliente)
     val valorConDescuentoAdulto = unaEntrada.calcularPrecioConDescuento(listaEntradas)
     assert(valorConDescuentoAdulto === unaEntrada.calcularPrecioSinDescuento - (0 * unaEntrada.precioBase))

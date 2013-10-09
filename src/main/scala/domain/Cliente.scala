@@ -5,8 +5,9 @@ import org.uqbar.commons.model.Entity
 import org.uqbar.commons.utils.Observable
 
 @Observable
-class Cliente(dni: Int, tiposDeCliente : List[TipoDeCliente]) extends Entity {
-  
+class Cliente(unDni: Int, tiposDeCliente : List[TipoDeCliente], unNombre:String) extends Entity {
+  var dni : Int = unDni
+  var nombre : String = unNombre
   def sosDama : Boolean = tiposDeCliente.contains(Dama)
   
   def sosMenorDeDoce : Boolean = tiposDeCliente.contains(MenorDeDoce)
@@ -18,7 +19,7 @@ class Cliente(dni: Int, tiposDeCliente : List[TipoDeCliente]) extends Entity {
 
 object Cliente {
   
-  def apply(dni: Int, edad: Int, sexo: Char) =  new Cliente(dni, tiposDeCliente(edad, sexo))
+  def apply(dni: Int, edad: Int, sexo: Char, nombre: String) =  new Cliente(dni, tiposDeCliente(edad, sexo),nombre)
   
   def tiposDeCliente(edad: Int, sexo: Char): List[TipoDeCliente] = {
     

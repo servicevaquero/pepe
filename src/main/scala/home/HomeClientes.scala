@@ -10,13 +10,13 @@ import org.uqbar.commons.utils.ApplicationContext
 
 object HomeClientes extends CollectionBasedHome[Cliente]{  
   
-	this.create(1, 48, 'F')
-    this.create(2, 67, 'M')
-    this.create(3, 11, 'M')
-    this.create(3, 17, 'M')
+	this.create(1, 48, 'F', "Josefina Acronizarious")
+    this.create(2, 67, 'M', "Elso Rete")
+    this.create(3, 11, 'M', "Elber Dulero")
+    this.create(4, 17, 'M', "Eltu Llido")
         
-  def create(unDNI: Int, unaEdad: Int, unSexo: Char): Unit = {
-    this.create(Cliente.apply(unDNI, unaEdad, unSexo))
+  def create(unDNI: Int, unaEdad: Int, unSexo: Char, unNombre: String): Unit = {
+    this.create(Cliente.apply(unDNI, unaEdad, unSexo, unNombre))
   }
 
   def clientes: java.util.List[Cliente] = allInstances
@@ -29,7 +29,7 @@ object HomeClientes extends CollectionBasedHome[Cliente]{
 
   override def getEntityType = classOf[Cliente]
 
-  override def createExample = Cliente.apply(0, 0, 'M')
+  override def createExample : Cliente = Cliente.apply(0, 0, 'M', "")
 
   override def getCriterio(example: Cliente) = null
 

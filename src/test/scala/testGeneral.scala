@@ -86,12 +86,12 @@ class testGeneral extends FunSuite with BeforeAndAfter {
 
   test("Escena 1: ChangoMaster comprando - Toma: 1") { // DESCUENTO MENOR DE 12
 	festival.crearEntradasParaCadaPresentacion
-    val carla = Cliente.apply(11111111, 11, 'F')
+    val carla = Cliente.apply(11111111, 11, 'F', "")
     assert(carla.getTiposDeCliente.contains(MenorDeDoce))
     
     chango.agregarEntradaDeEsteFestivalPresentacionYButacaParaEsteCliente(festival, presentacionA, butaca1Fila1SectorA, "", carla)
     assert(chango.calcularPrecio === 85)    // hasta ac� no tiene descuento porque la considera que esta SOLA
-    val carlonchasFather = Cliente.apply(22222222, 80, 'M')
+    val carlonchasFather = Cliente.apply(22222222, 80, 'M', "")
     assert(carlonchasFather.getTiposDeCliente.contains(Jubilado))
     
     chango.agregarEntradaDeEsteFestivalPresentacionYButacaParaEsteCliente(festival, presentacionA, butaca1Fila2SectorA, "", carlonchasFather)
@@ -110,14 +110,14 @@ class testGeneral extends FunSuite with BeforeAndAfter {
   
     test("Escena 1: ChangoMaster comprando - Toma: 2") {
 	festival.crearEntradasParaCadaPresentacion
-    val carla = Cliente.apply(11111111, 17, 'F')
+    val carla = Cliente.apply(11111111, 17, 'F', "")
     assert(carla.getTiposDeCliente.contains(Menor))
     assert(carla.getTiposDeCliente.contains(Dama))
     chango.agregarEntradaDeEsteFestivalPresentacionYButacaParaEsteCliente(festival, presentacionA, butaca1Fila1SectorA, "", carla)
 
     assert(chango.calcularPrecio === 85)
     // hasta ac� no tiene descuento porque no supera los minimos para aplicar el descuento de Menor
-    val carlonchasFather = Cliente.apply(22222222, 80, 'M')
+    val carlonchasFather = Cliente.apply(22222222, 80, 'M', "")
     
     chango.agregarEntradaDeEsteFestivalPresentacionYButacaParaEsteCliente(festival, presentacionA, butaca1Fila2SectorA, "", carlonchasFather)
     assert(chango.calcularPrecio === 153.7)
@@ -139,7 +139,7 @@ class testGeneral extends FunSuite with BeforeAndAfter {
     
   test("Escena 1: ChangoMaster comprando - Toma: 3") {
 	festival.crearEntradasParaCadaPresentacion
-    val carla = Cliente.apply(11111111, 47, 'F')
+    val carla = Cliente.apply(11111111, 47, 'F', "")
     assert(carla.getTiposDeCliente.contains(Adulto))
 
     chango.agregarEntradaDeEsteFestivalPresentacionYButacaParaEsteCliente(festival, presentacionA, butaca1Fila1SectorA, "", carla)
@@ -157,7 +157,7 @@ class testGeneral extends FunSuite with BeforeAndAfter {
     var festivalConDama = new Festival("Segundo", listaDeButacas, listaDeReservadas, listaDeVIP, recargoVIP, List(presentacionA, presentacionB), List(Dama, Adulto, Menor, Jubilado))
     festivalConDama.crearEntradasParaCadaPresentacion
     
-    val carla = Cliente.apply(11111111, 47, 'F')
+    val carla = Cliente.apply(11111111, 47, 'F', "")
     assert(carla.getTiposDeCliente.contains(Adulto))
     assert(carla.getTiposDeCliente.contains(Dama))
     
@@ -175,7 +175,7 @@ class testGeneral extends FunSuite with BeforeAndAfter {
 	
     var festivalSinDescuentos = new Festival("Tercero", listaDeButacas, List(butaca1Fila1SectorA), listaDeVIP, recargoVIP, List(presentacionA, presentacionB), List())
     festivalSinDescuentos.crearEntradasParaCadaPresentacion    
-    val carla = Cliente.apply(11111111, 11, 'F')
+    val carla = Cliente.apply(11111111, 11, 'F', "")
     
     chango.agregarEntradaDeEsteFestivalPresentacionYButacaParaEsteCliente(festivalSinDescuentos, presentacionA, butaca1Fila1SectorA, "A la grande le puse Cuca", carla)
     assert(chango.calcularPrecio === 85)
@@ -190,7 +190,7 @@ class testGeneral extends FunSuite with BeforeAndAfter {
 
     var festivalSinDescuentos = new Festival("Cuarto", listaDeButacas, List(), List(butaca1Fila1SectorA), recargoVIP, List(presentacionA, presentacionB), List())
     festivalSinDescuentos.crearEntradasParaCadaPresentacion
-    val carla = Cliente.apply(11111111, 11, 'F')
+    val carla = Cliente.apply(11111111, 11, 'F', "")
     
     chango.agregarEntradaDeEsteFestivalPresentacionYButacaParaEsteCliente(festivalSinDescuentos, presentacionA, butaca1Fila1SectorA, "", carla)
     assert(chango.calcularPrecio === 255) // es 85 por cada butaca, 2 presentacion ---> 170 + 50% de recargo ----> 255
