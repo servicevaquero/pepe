@@ -29,8 +29,9 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import applicationModel.GestorDeCompra
 import home.HomeClientes
+import applicationModel.ElegirClienteYEntrada
 
-class ElegirClienteW(parent: WindowOwner, unGestorDeCompra: GestorDeCompra) extends Dialog[SeleccionarCliente](parent, new SeleccionarCliente(unGestorDeCompra)) {
+class ElegirClienteW(parent: WindowOwner, unElector: ElegirClienteYEntrada) extends Dialog[SeleccionarCliente](parent, new SeleccionarCliente(unElector)) {
 
   getModelObject.search
 

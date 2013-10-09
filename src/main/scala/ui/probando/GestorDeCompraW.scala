@@ -46,7 +46,6 @@ class GestorDeCompraW(parent: WindowOwner) extends Dialog[GestorDeCompra](parent
     table.setHeigth(200)
     table.setWidth(550)
     table.bindItemsToProperty("entradasElegidas")
-    table.bindValueToProperty("entradaSeleccionada")
     this.describeResultsGrid(table)
   }
 
@@ -115,8 +114,8 @@ class GestorDeCompraW(parent: WindowOwner) extends Dialog[GestorDeCompra](parent
   }
 
   def agregarEntrada() {
-    this.openDialog(new ElegirClienteYEntradaW(this, getModelObject))
-    getModelObject.reload
+    this.openDialog(new ElegirClienteYEntradaW(this, getModelObject.dameUnElector))
+    getModelObject.reload()
   }
 
   def openDialog(dialog: Dialog[_]) {

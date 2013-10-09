@@ -23,7 +23,7 @@ import domain.ExcepcionButacaOcupada
 import domain.ExcepcionCodigoInvalido
 import org.uqbar.commons.model.UserException
 
-class ElegirClienteYEntradaW(parent: WindowOwner, unGestorDeCompra: GestorDeCompra) extends Dialog[ElegirClienteYEntrada](parent, new ElegirClienteYEntrada(unGestorDeCompra)) {
+class ElegirClienteYEntradaW(parent: WindowOwner, model: ElegirClienteYEntrada) extends Dialog[ElegirClienteYEntrada](parent, model) {
 
   override def addActions(actionsPanel: Panel) = {
     new Button(actionsPanel)
@@ -40,20 +40,18 @@ class ElegirClienteYEntradaW(parent: WindowOwner, unGestorDeCompra: GestorDeComp
   }
 
   def elegirEntrada() {
-    getModelObject.setCodigoDeReserva
-    this.openDialog(new AgregarEntradaW(this, unGestorDeCompra)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
+    this.openDialog(new AgregarEntradaW(this, getModelObject)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
   }
 
   def elegirCliente() {
     //this.openDialog(new AnularEntradaWindow(this, new Object)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
-    this.openDialog(new ElegirClienteW(this, unGestorDeCompra))
+    this.openDialog(new ElegirClienteW(this, getModelObject))
   }
 
   def confirmarEleccion() {
-    getModelObject.setCodigoDeReserva
     getModelObject.validarEleccion
     try{
-    unGestorDeCompra.agregarEntradas
+    //getModelObject.agregarEntradas
     } catch{
       case butacaOcupada: (ExcepcionButacaOcupada) => throw new UserException(butacaOcupada.getMessage())
       case codigoInvalido: (ExcepcionCodigoInvalido) => throw new UserException(codigoInvalido.getMessage())
@@ -72,7 +70,7 @@ class ElegirClienteYEntradaW(parent: WindowOwner, unGestorDeCompra: GestorDeComp
     var labelNumero = new Label(form)
     labelNumero.setText("Codigo de Reserva")
     labelNumero.setForeground(Color.BLUE)
-    new TextBox(form).bindValueToProperty("codigoDeReserva")
+    new TextBox(form).bindValueToProperty("codigoTipeado")
 
   }
 

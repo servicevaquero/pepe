@@ -13,26 +13,36 @@ class GestorDeCompra extends Serializable {
 
   var unChanguito: Chango = home.HomeChango.createExample
   var entradasElegidas: ArrayList[Entrada] = _
-
-  var entradaSeleccionada: Entrada = null
-  var clienteSeleccionado: Cliente = null
-  var codigoTipeado: String = ""
-  var precio: Double = 0.0
+  var elector: ElegirClienteYEntrada = null
   
+  var precio: Double = 0.0
+
+  def dameUnElector : ElegirClienteYEntrada = {
+    elector = new ElegirClienteYEntrada
+    elector
+  }
+
   def setPrecio() {
     precio = unChanguito.calcularPrecio
-    }
+  }
+
+  def chequearElector(){
+    if(elector.clienteSeleccionado != null && elector.entradaSeleccionada != null)	
+      agregarEntradas()
+  }
+
   
   def agregarEntradas() {
-    unChanguito.agregarEntrada(entradaSeleccionada, codigoTipeado, clienteSeleccionado)
+    unChanguito.agregarEntrada(elector.entradaSeleccionada, elector.codigoTipeado, elector.clienteSeleccionado)
     setEntradasEscogidas
     setPrecio
   }
-  
-  def reload(){
-	var temporalEntradasElegidas: ArrayList[Entrada] = entradasElegidas
-	entradasElegidas = new ArrayList[Entrada]
-	entradasElegidas = temporalEntradasElegidas
+
+  def reload() {
+    this.chequearElector()
+    var temporalEntradasElegidas: ArrayList[Entrada] = entradasElegidas    
+    entradasElegidas = new ArrayList[Entrada]
+    entradasElegidas = temporalEntradasElegidas
   }
 
   def setEntradasEscogidas {
@@ -48,7 +58,5 @@ class GestorDeCompra extends Serializable {
       null
     }
   }
-
-  def tenesNulls: Boolean = entradaSeleccionada == null || clienteSeleccionado == null
 
 }

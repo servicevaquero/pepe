@@ -26,8 +26,9 @@ import org.uqbar.arena.actions.MessageSend
 import collection.JavaConversions._
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
+import applicationModel.ElegirClienteYEntrada
 
-class AgregarEntradaW(parent: WindowOwner, unGestorDeCompra: GestorDeCompra) extends Dialog[ComprarEntrada](parent, new ComprarEntrada(unGestorDeCompra.entradaSeleccionada)) {
+class AgregarEntradaW(parent: WindowOwner, unElector: ElegirClienteYEntrada) extends Dialog[ComprarEntrada](parent, new ComprarEntrada(unElector.entradaSeleccionada)) {
 	
   getModelObject.search()
 
@@ -108,12 +109,12 @@ class AgregarEntradaW(parent: WindowOwner, unGestorDeCompra: GestorDeCompra) ext
   }
 
   def consultarEntradasDisponibles() {
-    this.openDialog(new ElegirEntradaW(this, getModelObject.presentacionSeleccionada, unGestorDeCompra))
-    getModelObject.entradaEscogida = unGestorDeCompra.entradaSeleccionada
+    this.openDialog(new ElegirEntradaW(this, getModelObject.presentacionSeleccionada, unElector))
+    getModelObject.entradaEscogida = unElector.entradaSeleccionada
   }
 
   def deshacerEleccion() {
-    unGestorDeCompra.entradaSeleccionada = null
+    unElector.entradaSeleccionada = null
     this.cancel()
   }
 

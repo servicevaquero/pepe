@@ -4,6 +4,7 @@ import org.uqbar.arena.windows.Dialog
 import controller.EntradaSectorTransformer
 import controller.EntradaNumeroDeFilaTransformer
 import controller.EntradaNumeroDeButacaTransformer
+import applicationModel.ElegirClienteYEntrada
 
 import org.uqbar.arena.windows.WindowOwner
 import collection.JavaConversions._
@@ -33,9 +34,7 @@ import home.HomePresentaciones
 import applicationModel.ElegirEntradasDePresentacion
 import applicationModel.GestorDeCompra
 
-class ElegirEntradaW(owner: WindowOwner, unaPresentacion: Presentacion, unGestorDeCompra : GestorDeCompra) extends Dialog[ElegirEntradasDePresentacion](owner, new ElegirEntradasDePresentacion(unaPresentacion,unGestorDeCompra)) {
-
-  var gestorDeCompra : GestorDeCompra = unGestorDeCompra
+class ElegirEntradaW(owner: WindowOwner, unaPresentacion: Presentacion, unElector : ElegirClienteYEntrada) extends Dialog[ElegirEntradasDePresentacion](owner, new ElegirEntradasDePresentacion(unaPresentacion, unElector)) {
   
   override def createMainTemplate(mainPanel: Panel) = {
     this.setTitle("Comprar Entradas")

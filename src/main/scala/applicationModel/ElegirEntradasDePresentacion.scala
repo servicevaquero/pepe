@@ -5,15 +5,15 @@ import java.util.ArrayList
 import org.uqbar.commons.utils.Observable
 
 @Observable
-class ElegirEntradasDePresentacion(unaPresentacion: Presentacion, unGestorDeCompra:GestorDeCompra) extends Serializable {
+class ElegirEntradasDePresentacion(unaPresentacion: Presentacion, unElector: ElegirClienteYEntrada) extends Serializable {
   val presentacionEscogida: Presentacion = unaPresentacion
-  var gestorDeCompra: GestorDeCompra = unGestorDeCompra
-  var entradaEscogida: Entrada = gestorDeCompra.entradaSeleccionada
+  var elector: ElegirClienteYEntrada= unElector
+  var entradaEscogida: Entrada = unElector.entradaSeleccionada
   var entradasDisponibles: ArrayList[Entrada] = new ArrayList[Entrada]
   this.setListaDisponibles
 
   def setEntradaEscogida {
-    gestorDeCompra.entradaSeleccionada = entradaEscogida
+    elector.entradaSeleccionada = entradaEscogida
   }
   
   def setListaDisponibles {

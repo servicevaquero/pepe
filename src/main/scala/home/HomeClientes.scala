@@ -27,23 +27,16 @@ object HomeClientes extends CollectionBasedHome[Cliente] {
     listaDeClientes
   }
 
-  
-  def modificarCliente(unDNI : Int, unClienteModificado: Cliente){
-    	var unCliente = this.get(unDNI)
-    	unCliente.dni =  unClienteModificado.dni
-    	unCliente.nombre = unClienteModificado.nombre
-    	unCliente.edad = unClienteModificado.edad
-    	unCliente.sexo = unClienteModificado.sexo
-  }
-  
-  override def validateCreate(cliente: Cliente): Unit = {
-    validarClientesDuplicados(cliente)
+  def modificarCliente(unDNI: Int, unClienteModificado: Cliente) {
+    var unCliente = this.get(unDNI)
+    unCliente.dni = unClienteModificado.dni
+    unCliente.nombre = unClienteModificado.nombre
+    unCliente.edad = unClienteModificado.edad
+    unCliente.sexo = unClienteModificado.sexo
   }
 
-  def validarClientesDuplicados(cliente: Cliente): Unit = {
-    if (this.get(cliente.dni) != null) {
-      throw new UserException("Ya existe un cliente con el dni: " + cliente.dni)
-    }
+  def search(unDNI: Integer, unNombre: String = null) = {
+    clientes.filter { unCliente => this.coincide(unDNI, unCliente.dni) && this.coincide(unNombre, unCliente.nombre) }
   }
 
   def coincide(expectedValue: Any, realValue: Any): Boolean = {
@@ -54,6 +47,16 @@ object HomeClientes extends CollectionBasedHome[Cliente] {
       return false
     }
     return realValue.toString().toLowerCase().contains(expectedValue.toString().toLowerCase())
+  }
+
+  override def validateCreate(cliente: Cliente): Unit = {
+    validarClientesDuplicados(cliente)
+  }
+
+  def validarClientesDuplicados(cliente: Cliente): Unit = {
+    if (this.get(cliente.dni) != null) {
+      throw new UserException("Ya existe un cliente con el dni: " + cliente.dni)
+    }
   }
 
   def get(dni: Int) = clientes.find(_.dni == dni).getOrElse(null)

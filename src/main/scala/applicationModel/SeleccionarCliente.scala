@@ -7,17 +7,16 @@ import domain.Cliente
 import home.HomeClientes
 
 @Observable
-class SeleccionarCliente(unGestorDeCompra: GestorDeCompra) extends Serializable {
+class SeleccionarCliente(unElector: ElegirClienteYEntrada) extends Serializable {
   
 	var dni : Integer = _
 	var nombre : String = _
 	var resultados : java.util.List[Cliente] = _
-	var clienteSeleccionado : Cliente = unGestorDeCompra.clienteSeleccionado
+	var clienteSeleccionado : Cliente = unElector.clienteSeleccionado
 
 	def search() = { 
 		resultados = new ArrayList[Cliente]
-		//resultados = HomeClientes.search(dni, nombre)
-		resultados = HomeClientes.clientes
+		resultados = HomeClientes.search(dni, nombre)
 	}
 
 	def clear() = {
@@ -26,7 +25,7 @@ class SeleccionarCliente(unGestorDeCompra: GestorDeCompra) extends Serializable 
 	}
 	
 	def setCliente() = {
-	  unGestorDeCompra.clienteSeleccionado = clienteSeleccionado
+	  unElector.clienteSeleccionado = clienteSeleccionado
 	}
 	
 }
