@@ -12,9 +12,8 @@ import java.util.ArrayList
 class GestorDeCompra extends Serializable {
 
   var unChanguito: Chango = home.HomeChango.createExample
-  var entradasElegidas: ArrayList[Entrada] = _
-  var elector: ElegirClienteYEntrada = null
-  
+  var entradasElegidas: ArrayList[Entrada] = null
+  var elector: ElegirClienteYEntrada = null  
   var precio: Double = 0.0
 
   def dameUnElector : ElegirClienteYEntrada = {
@@ -35,7 +34,6 @@ class GestorDeCompra extends Serializable {
       case codigoInvalido: (ExcepcionCodigoInvalido) => throw new UserException(codigoInvalido.getMessage())
     } 
   }
-
   
   def agregarEntradas() {
     unChanguito.agregarEntrada(elector.entradaSeleccionada, elector.codigoTipeado, elector.clienteSeleccionado)
@@ -56,12 +54,8 @@ class GestorDeCompra extends Serializable {
     entradasElegidas = listaTemporal
   }
 
-  def listaNULLorNotNULL = {
-    if (entradasElegidas.size() > 0) {
-      new Object
-    } else {
-      null
-    }
-  }
+  def limpiarEleccion {
+    entradasElegidas = null
+  } 
 
 }

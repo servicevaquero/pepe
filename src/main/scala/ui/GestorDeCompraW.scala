@@ -97,10 +97,15 @@ class GestorDeCompraW(parent: WindowOwner) extends Dialog[GestorDeCompra](parent
 
     var elementSelected = new NotNullObservable("entradasElegidas")
     confirmarButton.bindEnabled(elementSelected)
+
+    new Button(actionsPanel)
+      .setCaption("Cancelar")
+      .onClick(new MessageSend(this, "cancel"))
   }
 
   def ingresarPago() {
-    this.openDialog(new PagarW(this, getModelObject.unChanguito))
+    var pagado: Boolean = new PagarW(this, getModelObject.unChanguito).openWithReturn
+    if(pagado) getModelObject.limpiarEleccion
   }
 
   def agregarEntrada() {
@@ -111,5 +116,16 @@ class GestorDeCompraW(parent: WindowOwner) extends Dialog[GestorDeCompra](parent
   def openDialog(dialog: Dialog[_]) {
     dialog.open
   }
+
+  override def cancel() {
+    getModelObject.limpiarEleccion
+    super.cancel
+  }
+  
+ /* override def close(){ //NO hace lo que quiero de cancelar la eleccion y liberar Butacas :(
+    cancel//getModelObject.cancelarEleccion
+    super.close
+  }
+  */
 
 }

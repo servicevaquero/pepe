@@ -17,12 +17,17 @@ import domain.Chango
 
 class PagarW(parent: WindowOwner, unChango: Chango) extends Dialog[Pagar](parent, new Pagar(unChango)) {
 
+  var pagoRealizado: Boolean = false
+
   override def createMainTemplate(mainPanel: Panel) = {
     this.setTitle("Ventana de Pago")
     this.setTaskDescription("")
-
     super.createMainTemplate(mainPanel)
+  }
 
+  def openWithReturn(): Boolean = {
+    this.open
+    pagoRealizado
   }
 
   override def createFormPanel(mainPanel: Panel) = {
@@ -38,11 +43,21 @@ class PagarW(parent: WindowOwner, unChango: Chango) extends Dialog[Pagar](parent
   override def addActions(actionsPanel: Panel) = {
     new Button(actionsPanel)
       .setCaption("Pagar con Tarjeta")
-      .onClick(new MessageSend(getModelObject, "realizarPagoConTarjeta"))
+      .onClick(new MessageSend(this, "realizarPagoConTarjeta"))
 
     new Button(actionsPanel)
       .setCaption("Pagar con Efectivo")
       .onClick(new MessageSend(this, "accept"))
+  }
+
+  def realizarPagoConTarjeta() {
+    getModelObject.realizarPagoConTarjeta
+    this.accept
+  }
+  
+  override def accept(){
+    pagoRealizado = true
+    super.accept
   }
 
 }
