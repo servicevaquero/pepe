@@ -5,11 +5,12 @@ import org.uqbar.commons.model.Entity
 import org.uqbar.commons.utils.Observable
 
 @Observable
-class Presentacion(unaFecha: String, unaListaDeBandas : List[Banda]) extends Entity {
+class Presentacion(unaFecha: String, unaListaDeBandas : List[Banda], unNombre: String) extends Entity {
 
   val fecha: String = unaFecha
   val listaDeBandas: List[Banda] = unaListaDeBandas
   var listaDeEntradas: List[Entrada] = List()
+  var nombre: String = unNombre
   def getFecha = fecha
   def getCategoriaString : Char = this.getCategoria.getTipoCategoria
   

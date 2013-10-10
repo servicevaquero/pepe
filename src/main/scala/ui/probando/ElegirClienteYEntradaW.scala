@@ -40,11 +40,11 @@ class ElegirClienteYEntradaW(parent: WindowOwner, model: ElegirClienteYEntrada) 
   }
 
   def elegirEntrada() {
-    this.openDialog(new AgregarEntradaW(this, getModelObject)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
+    this.openDialog(new ElegirPresentacionW(this, getModelObject))
   }
 
   def elegirCliente() {
-    //this.openDialog(new AnularEntradaWindow(this, new Object)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
+   
     this.openDialog(new ElegirClienteW(this, getModelObject))
   }
 

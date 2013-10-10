@@ -48,7 +48,7 @@ class test extends FunSuite with BeforeAndAfter {
     bandaB = new Banda(categoria2)
     listaDeButacas = List(butaca2Fila1)
     listaDeBandas = List(bandaA, bandaB)
-    presentacion = new Presentacion("", listaDeBandas)
+    presentacion = new Presentacion("", listaDeBandas, "")
     festival = new Festival("Festivalito", listaDeButacas, List(), List(), 0.5, List(presentacion), List(Adulto, Menor, Dama, Jubilado))
     entradaA = new Entrada(festival, presentacion, butaca2Fila1)
     entradaB = new Entrada(festival, presentacion, butaca2Fila1)

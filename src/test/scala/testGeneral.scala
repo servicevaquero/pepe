@@ -69,9 +69,9 @@ class testGeneral extends FunSuite with BeforeAndAfter {
     listaDeVIP = List(butaca1Fila1SectorB)
     recargoVIP = 0.5	
     listaDeBandas = List(bandaA, bandaB)
-    presentacionA = new Presentacion("", listaDeBandas)
-    presentacionB = new Presentacion("", listaDeBandas)
-    presentacionC = new Presentacion("", List())
+    presentacionA = new Presentacion("", listaDeBandas, "")
+    presentacionB = new Presentacion("", listaDeBandas, "")
+    presentacionC = new Presentacion("", List(), "")
     
     festival = new Festival("Festivalito", listaDeButacas, listaDeReservadas, listaDeVIP, recargoVIP, List(presentacionA, presentacionB), List(Adulto, Menor, MenorDeDoce, Jubilado))
     

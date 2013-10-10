@@ -1,5 +1,8 @@
 package applicationModel
 import domain.Festival
+import domain.ExcepcionButacaOcupada
+import domain.ExcepcionCodigoInvalido
+import org.uqbar.commons.model.UserException
 import domain.Chango
 import domain.Presentacion
 import home.HomeFestivales
@@ -28,7 +31,12 @@ class GestorDeCompra extends Serializable {
 
   def chequearElector(){
     if(elector.clienteSeleccionado != null && elector.entradaSeleccionada != null)	
+      try{
       agregarEntradas()
+      } catch{ // NO DEBERIA PASAR JAMAS, perooooooooooooooooooooooooo... XD
+      case butacaOcupada: (ExcepcionButacaOcupada) => throw new UserException(butacaOcupada.getMessage())
+      case codigoInvalido: (ExcepcionCodigoInvalido) => throw new UserException(codigoInvalido.getMessage())
+    } 
   }
 
   

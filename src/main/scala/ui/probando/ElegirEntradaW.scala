@@ -38,7 +38,7 @@ class ElegirEntradaW(owner: WindowOwner, unaPresentacion: Presentacion, unElecto
   
   override def createMainTemplate(mainPanel: Panel) = {
     this.setTitle("Comprar Entradas")
-    this.setTaskDescription(unaPresentacion.toString())
+    this.setTaskDescription(unaPresentacion.nombre)
 
     super.createMainTemplate(mainPanel)
     this.createResultsGrid(mainPanel)
@@ -53,7 +53,7 @@ class ElegirEntradaW(owner: WindowOwner, unaPresentacion: Presentacion, unElecto
   def createResultsGrid(mainPanel: Panel) {
     var table = new Table[Entrada](mainPanel, classOf[Entrada])
     table.setHeigth(200)
-    table.setWidth(550)
+    table.setWidth(250)
     table.bindItemsToProperty("entradasDisponibles")
     table.bindValueToProperty("entradaEscogida")
     this.describeResultsGrid(table)
@@ -62,16 +62,16 @@ class ElegirEntradaW(owner: WindowOwner, unaPresentacion: Presentacion, unElecto
   def describeResultsGrid(table: Table[Entrada]) {
     new Column[Entrada](table)
       .setTitle("Sector")
-      .setFixedSize(100)
+      .setFixedSize(50)
       .bindContentsToTransformer(new EntradaSectorTransformer)
 
     new Column[Entrada](table)
       .setTitle("Fila")
-      .setFixedSize(100)
+      .setFixedSize(50)
       .bindContentsToTransformer(new EntradaNumeroDeFilaTransformer)
 
     new Column[Entrada](table)
-      .setTitle("Numero de Butaca")
+      .setTitle("Numero")
       .setFixedSize(100)
       .bindContentsToTransformer(new EntradaNumeroDeButacaTransformer)
   }

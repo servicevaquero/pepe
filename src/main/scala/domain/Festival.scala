@@ -37,7 +37,7 @@ class Festival(nombre : String, unasButacas : List[Butaca], unasButacasReservada
     if(esVIP(unaButaca)){ //VIP
     	entradas = obtenerEntradasDeTodasLasPresentacionesParaEstaButaca(unaButaca)
     }    
-    else if(butacasReservadas.contains(unaButaca)){ //FALTA ANALIZAR ESTO DE HABILITAR RESERVADAS
+    else if(butacasReservadas.contains(unaButaca)){ //RESERVADAS
     		habilitarButaca(unaButaca, unCodigo)
     		entradas = unaPresentacion.dameUnaEntradaConButaca(unaButaca)
     	}
@@ -65,9 +65,11 @@ class Festival(nombre : String, unasButacas : List[Butaca], unasButacasReservada
   }
   
   def validarCodigoHabilitador(unCodigo : String){
-    if(unCodigo != codigoReserva)
+    if(codigoIncorrecto(unCodigo))
       throw new ExcepcionCodigoInvalido("Codigo Invalido")
   }
+  
+  def codigoIncorrecto(unCodigo: String): Boolean = unCodigo != codigoReserva 
   
   def getDescuentosHabiltiados = descuentosHabilitados
   def recargoButacaVIP = recargoVIP
