@@ -1,6 +1,7 @@
 package controller
 
 import domain.Entrada
+import domain.Banda
 import com.uqbar.commons.collections.Transformer
 
 class EntradaSectorTransformer extends Transformer[Entrada, String] {
@@ -48,6 +49,12 @@ class EntradaPresentacionTransformer extends Transformer[Entrada, String] {
 class EntradaFestivalTransformer extends Transformer[Entrada, String] {
   override def transform(unaEntrada: Entrada): String = {
     unaEntrada.festival.nombreDelFestival
+  }
+}
+
+class BandaCategoriaTransformer extends Transformer[Banda, Char]{
+  override def transform(unaBanda: Banda): Char = {
+    unaBanda.getCategoria.getTipoCategoria    
   }
 }
 

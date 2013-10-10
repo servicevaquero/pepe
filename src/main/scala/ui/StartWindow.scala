@@ -19,19 +19,27 @@ class StartWindow(parent: WindowOwner) extends SimpleWindow[Start](parent, new S
   override def addActions(actionsPanel: Panel) = {
     new Button(actionsPanel)
       .setCaption("Comprar Entrada")
-      .onClick(new MessageSend(this, "ComprarEntrada"))
+      .onClick(new MessageSend(this, "comprarEntrada"))
 
     new Button(actionsPanel)
       .setCaption("Anular Entrada")
-      .onClick(new MessageSend(this, "AnularEntrada"))
+      .onClick(new MessageSend(this, "anularEntrada"))
+
+    new Button(actionsPanel)
+      .setCaption("Ver Bandas por Festival")
+      .onClick(new MessageSend(this, "verBandasPorFestival"))
   }
 
-  def ComprarEntrada() {
+  def comprarEntrada() {
     this.openDialog(new GestorDeCompraW(this)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
   }
 
-  def AnularEntrada() {
+  def anularEntrada() {
     this.openDialog(new AnularEntradaWindow(this))
+  }
+
+  def verBandasPorFestival() {
+    this.openDialog(new VerBandasPorFestivalWindow(this))
   }
 
   def openDialog(dialog: Dialog[_]) {

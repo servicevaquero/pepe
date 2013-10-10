@@ -24,10 +24,4 @@ class ComprarEntrada(unaEntrada: Entrada) extends Serializable {
     devolver
   }
   
-  def hayUnaPresentacionSeleccionada = {
-    if (presentacionSeleccionada != null )
-      new Object()
-    else null
-  }
-
 }
