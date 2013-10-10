@@ -28,9 +28,4 @@ class ElegirEntradasDePresentacion(unaPresentacion: Presentacion, unElector: Ele
     unaEntrada.cliente == null && (!unFestival.butacasReservadas.contains(unaEntrada.butaca) || !unFestival.codigoIncorrecto(unElector.codigoTipeado))
   }
   
-  def hayUnaEntradaElegida = {
-    if (entradaEscogida == null)
-      null
-    else new Object()
-  }
 }

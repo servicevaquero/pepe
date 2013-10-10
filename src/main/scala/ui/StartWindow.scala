@@ -11,6 +11,11 @@ import org.uqbar.arena.windows.WindowOwner
 
 class StartWindow(parent: WindowOwner) extends SimpleWindow[Start](parent, new Start) {
 
+  override def createFormPanel(mainPanel: Panel) = {
+    var searchFormPanel = new Panel(mainPanel)
+    searchFormPanel.setLayout(new ColumnLayout(1))
+  }
+
   override def addActions(actionsPanel: Panel) = {
     new Button(actionsPanel)
       .setCaption("Comprar Entrada")
@@ -26,17 +31,11 @@ class StartWindow(parent: WindowOwner) extends SimpleWindow[Start](parent, new S
   }
 
   def AnularEntrada() {
-    //this.openDialog(new AnularEntradaWindow(this, new Object)) // HAY QUE FIJARSE EL POR QUE ES NECESARIO EL 2DO PARAMETRO!!
-    //this.openDialog(new ElegirClienteW(this, new GestorDeCompra))
+    this.openDialog(new AnularEntradaWindow(this))
   }
 
   def openDialog(dialog: Dialog[_]) {
     dialog.open
-  }
-
-  override def createFormPanel(mainPanel: Panel) = {
-    var searchFormPanel = new Panel(mainPanel)
-    searchFormPanel.setLayout(new ColumnLayout(1))
   }
 
 }
