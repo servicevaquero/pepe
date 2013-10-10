@@ -41,7 +41,7 @@ class EntradaFechaPresentacionTransformer extends Transformer[Entrada, String] {
 
 class EntradaPresentacionTransformer extends Transformer[Entrada, String] {
   override def transform(unaEntrada: Entrada): String = {
-    unaEntrada.presentacion.toString()
+    unaEntrada.presentacion.nombre
   }
 }
 

@@ -38,13 +38,24 @@ class AnularEntradaWindow(owner: WindowOwner) extends Dialog[AnularEntrada](owne
   def createResultsGrid(mainPanel: Panel) {
     var table = new Table[Entrada](mainPanel, classOf[Entrada])
     table.setHeigth(200)
-    table.setWidth(250)
+    table.setWidth(400)
     table.bindItemsToProperty("entradasNoDisponibles")
     table.bindValueToProperty("entradaEscogida")
     this.describeResultsGrid(table)
   }
 
   def describeResultsGrid(table: Table[Entrada]) {
+    
+    new Column[Entrada](table)
+      .setTitle("Festival")
+      .setFixedSize(100)
+      .bindContentsToTransformer(new EntradaFestivalTransformer)
+      
+    new Column[Entrada](table)
+      .setTitle("Presentacion")
+      .setFixedSize(100)
+      .bindContentsToTransformer(new EntradaPresentacionTransformer)
+    
     new Column[Entrada](table)
       .setTitle("Sector")
       .setFixedSize(50)
