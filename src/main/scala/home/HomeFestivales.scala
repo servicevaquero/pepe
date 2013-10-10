@@ -1,4 +1,5 @@
 package home
+
 import domain.Festival
 import domain.Butaca
 import domain.Presentacion
@@ -8,13 +9,9 @@ import domain.Menor
 import domain.MenorDeDoce
 import domain.Dama
 import domain.Jubilado
-
 import scala.collection.JavaConversions.asScalaBuffer
 import org.uqbar.commons.model.CollectionBasedHome
-import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.Observable
-import org.apache.commons.collections15.Predicate
-import org.uqbar.commons.utils.ApplicationContext
 
 @Observable
 object HomeFestivales extends CollectionBasedHome[Festival] {

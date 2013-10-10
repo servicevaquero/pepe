@@ -1,15 +1,12 @@
 package applicationModel
-import domain.Festival
+
 import domain.ExcepcionButacaOcupada
 import domain.ExcepcionCodigoInvalido
 import org.uqbar.commons.model.UserException
 import domain.Chango
-import domain.Presentacion
-import home.HomeFestivales
 import org.uqbar.commons.utils.Observable
 import domain.Entrada
 import java.util.ArrayList
-import domain.Cliente
 
 @Observable
 class GestorDeCompra extends Serializable {

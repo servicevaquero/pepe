@@ -1,27 +1,17 @@
 package ui
-import home._
-import applicationModel.GestorDeCompra
+
 import applicationModel.ElegirClienteYEntrada
 import org.uqbar.arena.actions.MessageSend
+import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.Dialog
-import org.uqbar.arena.windows.SimpleWindow
-import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.actions.MessageSend
-import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.windows.Dialog
-import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.TextBox
 import java.awt.Color
-import domain.ExcepcionButacaOcupada
-import domain.ExcepcionCodigoInvalido
-import org.uqbar.commons.model.UserException
+
 
 class ElegirClienteYEntradaW(parent: WindowOwner, model: ElegirClienteYEntrada) extends Dialog[ElegirClienteYEntrada](parent, model) {
 
@@ -50,12 +40,6 @@ class ElegirClienteYEntradaW(parent: WindowOwner, model: ElegirClienteYEntrada) 
 
   def confirmarEleccion() {
     getModelObject.validarEleccion
-    try{
-    //getModelObject.agregarEntradas
-    } catch{
-      case butacaOcupada: (ExcepcionButacaOcupada) => throw new UserException(butacaOcupada.getMessage())
-      case codigoInvalido: (ExcepcionCodigoInvalido) => throw new UserException(codigoInvalido.getMessage())
-    } 
     this.accept
   }
 

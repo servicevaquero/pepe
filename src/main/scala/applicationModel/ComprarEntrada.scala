@@ -2,9 +2,7 @@ package applicationModel
 import domain.Festival
 import domain.Presentacion
 import domain.Entrada
-import home.HomeFestivales
 import org.uqbar.commons.utils.Observable
-import home.HomePresentaciones
 import java.util.ArrayList
 
 @Observable

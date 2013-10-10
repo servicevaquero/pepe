@@ -1,8 +1,10 @@
 package applicationModel
+
 import org.uqbar.commons.model.UserException
+import org.uqbar.commons.utils.Observable
 import domain.Entrada
 import domain.Cliente
-import org.uqbar.commons.utils.Observable
+
 
 @Observable
 class ElegirClienteYEntrada() extends Serializable {

@@ -1,4 +1,5 @@
 package applicationModel
+
 import domain.Chango
 import org.uqbar.commons.utils.Observable
 import domain.ExcepcionTarjetaRechazada

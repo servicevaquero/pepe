@@ -1,10 +1,9 @@
 package ui
-import domain._
 
 import java.awt.Color
-import org.uqbar.arena.bindings.ObservableProperty
-import org.uqbar.arena.bindings.PropertyAdapter
-import org.uqbar.arena.widgets.CheckBox
+
+
+
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Selector

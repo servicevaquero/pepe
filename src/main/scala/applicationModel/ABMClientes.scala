@@ -1,13 +1,11 @@
 package applicationModel
-import domain.Festival
+
 import org.uqbar.commons.model.UserException
-import domain.Chango
-import domain.Presentacion
-import home.HomeFestivales
 import org.uqbar.commons.utils.Observable
 import domain.Entrada
 import java.util.ArrayList
 import domain.Cliente
+import home.HomeClientes
 
 @Observable
 class ABMClientes(unCliente: Cliente) extends Serializable {
@@ -21,7 +19,7 @@ class ABMClientes(unCliente: Cliente) extends Serializable {
   def modificar() {
     var unClienteModificado = Cliente.apply(dni, edad, sexo, nombre)
     this.validarCliente
-    home.HomeClientes.modificarCliente(dniInicial, unClienteModificado)
+    HomeClientes.modificarCliente(dniInicial, unClienteModificado)
   }
 
   def validarCliente() {
@@ -42,7 +40,7 @@ class ABMClientes(unCliente: Cliente) extends Serializable {
 
   def crear() {
     validarCliente()
-    home.HomeClientes.create(dni, edad, sexo, nombre)
+    HomeClientes.create(dni, edad, sexo, nombre)
   }
 
 }

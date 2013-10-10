@@ -1,20 +1,12 @@
 package ui
-import home._
-import applicationModel.GestorDeCompra
+
 import applicationModel.Start
 import org.uqbar.arena.actions.MessageSend
-import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
-import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.actions.MessageSend
 import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.Dialog
-import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
 class StartWindow(parent: WindowOwner) extends SimpleWindow[Start](parent, new Start) {

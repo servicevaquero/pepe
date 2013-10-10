@@ -1,12 +1,9 @@
 package ui
-import domain._
 
-import home._
+import domain.Festival
+import domain.Presentacion
+import home.HomeFestivales
 import applicationModel.ComprarEntrada
-import applicationModel.GestorDeCompra
-import applicationModel.ElegirEntradasDePresentacion
-
-import java.awt.Color
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.bindings.NotNullObservable
@@ -19,11 +16,8 @@ import org.uqbar.arena.widgets.Selector
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.actions.MessageSend
-import collection.JavaConversions._
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import applicationModel.ElegirClienteYEntrada
@@ -73,12 +67,12 @@ class ElegirPresentacionW(parent: WindowOwner, unElector: ElegirClienteYEntrada)
     var confirmarButton = new Button(actionsPanel)
       .setCaption("Confirmar Entrada Elegida")
       .onClick(new MessageSend(this, "accept"))
-    .setAsDefault
+      .setAsDefault
 
     new Button(actionsPanel)
       .setCaption("Cancelar")
       .onClick(new MessageSend(this, "deshacerEleccion"))
-    .setAsDefault
+      .setAsDefault
 
     var elementSelected = new NotNullObservable("entradaEscogida")
     confirmarButton.bindEnabled(elementSelected)

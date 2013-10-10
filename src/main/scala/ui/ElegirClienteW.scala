@@ -1,31 +1,20 @@
 package ui
-import domain._
+
+import domain.Cliente
 import applicationModel.SeleccionarCliente
-import org.uqbar.arena.windows.Dialog
-import org.uqbar.arena.windows.WindowOwner
 import collection.JavaConversions._
 import java.awt.Color
-import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.bindings.NotNullObservable
-import org.uqbar.arena.bindings.ObservableProperty
-import org.uqbar.arena.bindings.PropertyAdapter
-import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.widgets.Selector
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.actions.MessageSend
-import collection.JavaConversions._
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
-import applicationModel.GestorDeCompra
-import home.HomeClientes
 import applicationModel.ElegirClienteYEntrada
 
 class ElegirClienteW(parent: WindowOwner, unElector: ElegirClienteYEntrada) extends Dialog[SeleccionarCliente](parent, new SeleccionarCliente(unElector)) {
