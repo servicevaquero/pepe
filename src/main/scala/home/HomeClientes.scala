@@ -28,9 +28,13 @@ object HomeClientes extends CollectionBasedHome[Cliente] {
   }
 
   def modificarCliente(unDNI: Int, unClienteModificado: Cliente) {
+    //print("\n\n\n\nHasta aca anda 1\n\n\n\n")
     var unCliente = this.get(unDNI)
+    //print("\n\n\n\nHasta aca anda 2\n\n\n\n")
     unCliente.dni = unClienteModificado.dni
+    //print("\n\n\n\nHasta aca anda 3\n\n\n\n")
     unCliente.nombre = unClienteModificado.nombre
+    //print("\n\n\n\nHasta aca anda 4\n\n\n\n")
     unCliente.edad = unClienteModificado.edad
     unCliente.sexo = unClienteModificado.sexo
   }

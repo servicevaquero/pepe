@@ -36,7 +36,7 @@ class EditarClienteW(owner: WindowOwner, unCliente: Cliente) extends Dialog[ABMC
   override def addActions(actions: Panel) = {
     new Button(actions)
       .setCaption("Aceptar")
-      .onClick(new MessageSend(EditarClienteW.this, "modificar"))
+      .onClick(new MessageSend(EditarClienteW.this, "aceptar"))
       .setAsDefault.disableOnError
 
     new Button(actions)
@@ -44,7 +44,7 @@ class EditarClienteW(owner: WindowOwner, unCliente: Cliente) extends Dialog[ABMC
       .onClick(new MessageSend(EditarClienteW.this, "cancel"))
   }
 
-  def modificar() {
+  def aceptar() {
     getModelObject.modificar()
     this.accept()
   }

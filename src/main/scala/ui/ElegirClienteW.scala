@@ -1,7 +1,4 @@
-package ui.probando
-import ui.CrearClienteW
-import ui.EditarClienteW
-
+package ui
 import domain._
 import applicationModel.SeleccionarCliente
 import org.uqbar.arena.windows.Dialog

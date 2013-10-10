@@ -18,9 +18,15 @@ import applicationModel.ABMClientes
 import home.HomeClientes
 
 class CrearClienteW(owner: WindowOwner, unCliente: Cliente) extends EditarClienteW(owner, unCliente) {
+
   override def executeTask() = {
-    home.HomeClientes.create(getModelObject.dni, getModelObject.edad, getModelObject.sexo, getModelObject.nombre)
+    //home.HomeClientes.create(getModelObject.dni, getModelObject.edad, getModelObject.sexo, getModelObject.nombre)
     super.executeTask()
+  }
+
+  override def aceptar() {
+    getModelObject.crear()
+    this.accept()
   }
 
 }

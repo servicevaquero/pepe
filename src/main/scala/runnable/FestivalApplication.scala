@@ -1,6 +1,6 @@
 package runnable
 
-import ui.probando.StartWindow
+import ui.StartWindow
 import org.uqbar.arena.Application
 
 object FestivalApplication extends Application with App {

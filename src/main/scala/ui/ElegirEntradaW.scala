@@ -1,4 +1,4 @@
-package ui.probando
+package ui
 import org.uqbar.arena.windows.Dialog
 
 import controller.EntradaSectorTransformer

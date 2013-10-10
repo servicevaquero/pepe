@@ -1,4 +1,4 @@
-package ui.probando
+package ui
 import domain._
 
 import home._

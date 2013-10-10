@@ -1,4 +1,4 @@
-package ui.probando
+package ui
 import home._
 import applicationModel.GestorDeCompra
 import applicationModel.Start
